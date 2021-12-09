@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">studeTeacher</string>
+    <string-array name="אזור">
+        <item>צפון</item>
+        <item>מרכז</item>
+        <item>יהודה ושומרון</item>
+        <item>דרום</item>
+    </string-array>
+
+
+    <string name="image_contentDescription">image</string>
+
+    <string name="let_s_get_started_text">Let\'s Get started</string>
+
+    <string name="intro_text_description">Collaborate and Plan Together Across Multiple Devices on Projemanag’s Minimalist Interface.</string>
+
+    <string name="sign_in">SIGN IN</string>
+
+    <string name="sign_up">SIGN UP</string>
+</resources>
