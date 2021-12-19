@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<LinearLayout tools:context=".MainActivity"
+<LinearLayout
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@drawable/intro_background"
@@ -12,20 +12,22 @@
 
     <!--END-->
 
-    <TextView android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:textStyle="bold"
-        android:textSize="@dimen/intro_screen_title_text_size"
-        android:textColor="@color/colorAccent"
-        android:text="@string/app_name"
-        android:layout_marginTop="@dimen/intro_screen_title_text_marginTop"
-        android:id="@+id/tv_app_name_intro"/>
+<!--    <TextView android:layout_height="wrap_content"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="@dimen/intro_screen_title_text_size"-->
+<!--        android:textColor="@color/colorAccent"-->
+<!--        android:text="@string/app_name"-->
+<!--        android:layout_marginTop="@dimen/intro_screen_title_text_marginTop"-->
+<!--        android:id="@+id/tv_app_name_intro"/>-->
 
-    <ImageView android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="@dimen/intro_screen_image_marginTop"
-        android:src="@drawable/ic_task_image"
-        android:contentDescription="@string/image_contentDescription"/>
+    <ImageView
+        android:layout_width="380dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="0dp"
+        android:contentDescription="@string/image_contentDescription"
+        android:src="@drawable/ic_pmain" />
 
     <TextView android:layout_height="wrap_content"
         android:layout_width="wrap_content"

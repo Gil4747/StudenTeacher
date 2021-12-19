@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "376136310628",
+    "firebase_url": "https://studentteacher-ce7a8-default-rtdb.firebaseio.com",
+    "project_id": "studentteacher-ce7a8",
+    "storage_bucket": "studentteacher-ce7a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376136310628:android:eda057c5c614c160466471",
+        "android_client_info": {
+          "package_name": "com.example.helloworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376136310628-h64ss49flg57kus3s78ushu6bbcb8leh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcG5P4EViR-Z72XyYexBqvaHwfswyRLpI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376136310628-h64ss49flg57kus3s78ushu6bbcb8leh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
