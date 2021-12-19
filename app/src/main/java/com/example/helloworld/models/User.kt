@@ -9,11 +9,11 @@ data class User(
     val image: String = "",
     val mobile: Long = 0,
     val fcmToken: String = "",
-//    val profession1: String = "",
-//    val profession2: String = "",
-//    val profession3: String = "",
-//    val area: String = "",
-//    val gender: String = ""
+    val profession1: String = "",
+    val profession2: String = "",
+    val profession3: String = "",
+    val area: String = "",
+    val gender: String = ""
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -22,9 +22,11 @@ data class User(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readLong(),
-//        parcel.readString()!!,
-//        parcel.readString()!!,
-//        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
         parcel.readString()!!
     )
 
@@ -37,11 +39,11 @@ data class User(
         writeString(image)
         writeLong(mobile)
         writeString(fcmToken)
-//        writeString(profession1)
-//        writeString(profession2)
-//        writeString(profession3)
-//        writeString(area)
-//        writeString(gender)
+        writeString(profession1)
+        writeString(profession2)
+        writeString(profession3)
+        writeString(area)
+        writeString(gender)
     }
 
 //    companion object CREATOR : Parcelable.Creator<User> {

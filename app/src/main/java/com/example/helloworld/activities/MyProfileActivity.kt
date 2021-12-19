@@ -204,6 +204,9 @@ class MyProfileActivity : BaseActivity() {
         if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
             userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
         }
+//        if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
+//            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
+//        }
 
         // Update the data in the database.
         FirestoreClass().updateUserProfileData(this@MyProfileActivity, userHashMap)

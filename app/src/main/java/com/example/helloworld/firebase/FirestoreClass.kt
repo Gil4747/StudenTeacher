@@ -45,7 +45,7 @@ class FirestoreClass {
                 )
             }
     }
-    // TODO (Step 5: Create a function to update the user profile data into the database.)
+    // TODO (Create a function to update the user profile data into the database.)
     // START
     /**
      * A function to update the user profile data into the database.
@@ -75,7 +75,7 @@ class FirestoreClass {
     // END
 
 
-    // TODO (Step 1: We can use the same function to get the current logged in user details. As we need to modify only few things here.)
+    // TODO (We can use the same function to get the current logged in user details. As we need to modify only few things here.)
     // START
     /**
      * A function to SignIn using firebase and get the user details from Firestore Database.
@@ -93,7 +93,7 @@ class FirestoreClass {
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val loggedInUser = document.toObject(User::class.java)!!
 
-                // TODO(Step 6: Modify the parameter and check the instance of activity and send the success result to it.)
+                // TODO(Modify the parameter and check the instance of activity and send the success result to it.)
                 // START
                 // Here call a function of base activity for transferring the result to it.
                 when (activity) {
@@ -111,7 +111,7 @@ class FirestoreClass {
                 // END
             }
             .addOnFailureListener { e ->
-                // TODO(Step 2: Hide the progress dialog in failure function based on instance of activity.)
+                // TODO(Hide the progress dialog in failure function based on instance of activity.)
                 // START
                 // Here call a function of base activity for transferring the result to it.
                 when (activity) {
