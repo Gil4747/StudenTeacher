@@ -40,10 +40,28 @@ class FirestoreClass {
                 activity.hideProgressDialog()
                 Log.e(
                     activity.javaClass.simpleName,
-                    "Error writing document",
-                    e
+                    "Error writing document", e
                 )
             }
+        if(userInfo.profession1.isNotEmpty()) {
+            mFireStore.collection(Constants.TEACHERS)
+                // Document ID for users fields. Here the document it is the User ID.
+                .document(getCurrentUserID())
+                // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+                .set(userInfo, SetOptions.merge())
+                .addOnSuccessListener {
+
+                    // Here call a function of base activity for transferring the result to it.
+                    activity.userRegisteredSuccess()
+                }
+                .addOnFailureListener { e ->
+                    activity.hideProgressDialog()
+                    Log.e(
+                        activity.javaClass.simpleName,
+                        "Error writing document", e
+                    )
+                }
+        }
     }
     // TODO (Create a function to update the user profile data into the database.)
     // START
@@ -88,7 +106,7 @@ class FirestoreClass {
             .document(getCurrentUserID())
             .get()
             .addOnSuccessListener { document ->
-//                Log.e(activity.javaClass.simpleName, document.toString())
+                Log.e(activity.javaClass.simpleName, document.toString())
 
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val loggedInUser = document.toObject(User::class.java)!!

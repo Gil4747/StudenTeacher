@@ -1,4 +1,5 @@
 package com.example.helloworld.activities
+import android.app.ActionBar
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +20,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import android.widget.EditText
+
+import android.widget.LinearLayout
+
+
+
 
 class SignUpActivity : BaseActivity() {
 
@@ -30,7 +37,6 @@ class SignUpActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_sign_up)
-
 
 
         // This is used to hide the status bar and make the splash screen as a full screen activity.
@@ -110,6 +116,13 @@ class SignUpActivity : BaseActivity() {
         }
 //        val btn_i_want_teach = findViewById<Button>(R.id.btn_i_want_teach)
 //        btn_i_want_teach.setOnClickListener {
+//            val layout = findViewById<View>(R.id.holder) as LinearLayout
+//            val et = EditText(this)
+//            val lp = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT)
+//            layout.addView(et, lp)
+//        }
+//        val btn_i_want_teach = findViewById<Button>(R.id.btn_i_want_teach)
+//        btn_i_want_teach.setOnClickListener {
 //            val intent = Intent(this, WhatIAmTeaching::class.java)
 //            startActivity(intent)
 //        }
@@ -165,11 +178,11 @@ class SignUpActivity : BaseActivity() {
         val password: String = et_password.text.toString().trim { it <= ' ' }
         val phon: String = et_phon_num.text.toString().trim { it <= ' ' }
         val prof1: String = et_prof1.text.toString().trim { it <= ' ' }
-        val prof2: String = et_prof2.text.toString().trim { it <= ' ' }
-        val prof3: String = et_prof3.text.toString().trim { it <= ' ' }
+//        val prof2: String = et_prof2.text.toString().trim { it <= ' ' }
+//        val prof3: String = et_prof3.text.toString().trim { it <= ' ' }
         val Cpassword: String = et_confirm_password.text.toString().trim { it <= ' ' }
 
-        if (validateForm(name, email, password, Cpassword,phon,prof1,prof2,prof3)) {
+        if (validateForm(name, email, password, Cpassword,phon)) {
             showProgressDialog(resources.getString(R.string.please_wait))
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
@@ -184,7 +197,7 @@ class SignUpActivity : BaseActivity() {
                             val firebaseUser: FirebaseUser = task.result!!.user!!
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
-                            val user = User(firebaseUser.uid, name, registeredEmail)
+                            val user = User(firebaseUser.uid, name, registeredEmail,prof1)
                             FirestoreClass().registerUser(this, user)
                         } else {
                             Toast.makeText(
@@ -205,7 +218,7 @@ class SignUpActivity : BaseActivity() {
     /**
      * A function to validate the entries of a new user.
      */
-    private fun validateForm(name: String, email: String, password: String, cPsswoed: String, phon:String, prof1: String,prof2: String,prof3: String,): Boolean {
+    private fun validateForm(name: String, email: String, password: String, cPsswoed: String, phon:String): Boolean {
         return when {
             TextUtils.isEmpty(name) -> {
                 showErrorSnackBar("Please enter name.")

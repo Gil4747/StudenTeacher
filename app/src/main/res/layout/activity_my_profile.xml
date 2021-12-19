@@ -146,7 +146,7 @@
                     android:layout_marginTop="@dimen/my_profile_et_mobile_marginTop">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_Area"
+                        android:id="@+id/et_area"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/area"
@@ -169,7 +169,7 @@
                     android:layout_marginTop="@dimen/my_profile_et_mobile_marginTop">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_proff1"
+                        android:id="@+id/et_prof1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/proff1"
@@ -183,7 +183,7 @@
                     android:layout_marginTop="@dimen/my_profile_et_mobile_marginTop">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_proff2"
+                        android:id="@+id/et_prof2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/proff2"
@@ -198,7 +198,7 @@
                     android:layout_marginTop="@dimen/my_profile_et_mobile_marginTop">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_proff3"
+                        android:id="@+id/et_prof3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/proff3"

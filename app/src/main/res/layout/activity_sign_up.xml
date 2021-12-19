@@ -56,7 +56,6 @@
             android:textSize="@dimen/authentication_description_text_size" />
 
 
-        -
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -67,8 +66,7 @@
             android:elevation="@dimen/card_view_elevation"
             app:cardCornerRadius="@dimen/card_view_corner_radius">
 
-
-            -
+            
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -109,7 +107,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-                -
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -180,51 +177,85 @@
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"-->
+<!--                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"-->
+<!--                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
-                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"
-                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
+<!--                    <androidx.appcompat.widget.AppCompatEditText-->
+<!--                        android:id="@+id/et_numOfClasses"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:hint="if you want to teach- how many subjects do you teach?"-->
+<!--                        android:inputType="number"-->
+<!--                        android:textSize="16sp" />-->
 
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_prof1"
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="נושא שאני רוצה ללמד"
-                        android:textSize="16sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
+                        android:layout_marginTop="@dimen/authentication_screen_til_marginTop"
+                        android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
-                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"
-                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_prof2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="נושא שאני רוצה ללמד"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_prof1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="first subject"
+                            android:textSize="16sp" />
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
-                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"
-                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
 
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_prof3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="נושא שאני רוצה ללמד"
-                        android:textSize="16sp" />
+
+
+                    <!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"-->
+<!--                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"-->
+<!--                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">-->
+
+<!--                    <androidx.appcompat.widget.AppCompatEditText-->
+<!--                        android:id="@+id/et_prof1"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:hint="נושא שאני רוצה ללמד"-->
+<!--                        android:textSize="16sp" />-->
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"-->
+<!--                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"-->
+<!--                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">-->
+
+<!--                    <androidx.appcompat.widget.AppCompatEditText-->
+<!--                        android:id="@+id/et_prof2"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:hint="נושא שאני רוצה ללמד"-->
+<!--                        android:textSize="16sp" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"-->
+<!--                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"-->
+<!--                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">-->
+
+<!--                    <androidx.appcompat.widget.AppCompatEditText-->
+<!--                        android:id="@+id/et_prof3"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:hint="נושא שאני רוצה ללמד"-->
+<!--                        android:textSize="16sp" />-->
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/spn_area_R"
@@ -249,6 +280,7 @@
                         android:spinnerMode="dropdown"
                         app:boxBackgroundColor="@color/colorAccent" />
 
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
@@ -268,6 +300,29 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/btn_text_size" />
 
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_i_want_teach"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginStart="@dimen/btn_marginStartEnd"-->
+<!--                    android:layout_marginTop="@dimen/sign_up_screen_btn_marginTop"-->
+<!--                    android:layout_marginEnd="@dimen/btn_marginStartEnd"-->
+<!--                    android:background="@drawable/shape_button_rounded"-->
+<!--                    android:foreground="?attr/selectableItemBackground"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingTop="@dimen/btn_paddingTopBottom"-->
+<!--                    android:paddingBottom="@dimen/btn_paddingTopBottom"-->
+<!--                    android:text="teach"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="@dimen/btn_text_size" />-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:id="@+id/holder"-->
+<!--                    android:orientation="vertical">-->
+<!--                </LinearLayout>-->
 
             </LinearLayout>
 

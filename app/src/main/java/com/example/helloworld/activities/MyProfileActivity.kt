@@ -201,9 +201,14 @@ class MyProfileActivity : BaseActivity() {
             userHashMap[Constants.NAME] = et_name.text.toString()
         }
 
-        if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
-            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
+        if (et_prof1.text.toString() != mUserDetails.profession1) {
+            userHashMap[Constants.NAME] = et_name.text.toString()
         }
+
+//        if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
+//            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
+//        }
+
 //        if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
 //            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
 //        }
@@ -233,9 +238,9 @@ class MyProfileActivity : BaseActivity() {
 
         et_name.setText(user.name)
         et_email.setText(user.email)
-        if (user.mobile != 0L) {
-            et_mobile.setText(user.mobile.toString())
-        }
+//        if (user.mobile != 0L) {
+//            et_mobile.setText(user.mobile.toString())
+//        }
     }
     // END
 

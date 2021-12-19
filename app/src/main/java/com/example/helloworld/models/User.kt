@@ -6,28 +6,29 @@ data class User(
     val id: String = "",
     val name: String = "",
     val email: String = "",
-    val image: String = "",
-    val mobile: Long = 0,
-    val fcmToken: String = "",
     val profession1: String = "",
-    val profession2: String = "",
-    val profession3: String = "",
+    val image: String = "",
+
+//    val mobile: Long = 0,
+    val fcmToken: String = "",
     val area: String = "",
     val gender: String = ""
 
+//    val profession2: String = "",
+//    val profession3: String = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readLong(),
-        parcel.readString()!!,
-        parcel.readString()!!,
+//        parcel.readLong(),
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!
+//        parcel.readString()!!,
+//        parcel.readString()!!
     )
 
     override fun describeContents() = 0
@@ -36,14 +37,16 @@ data class User(
         writeString(id)
         writeString(name)
         writeString(email)
-        writeString(image)
-        writeLong(mobile)
-        writeString(fcmToken)
         writeString(profession1)
-        writeString(profession2)
-        writeString(profession3)
+        writeString(image)
+
+//        writeLong(mobile)
+        writeString(fcmToken)
         writeString(area)
         writeString(gender)
+
+//        writeString(profession2)
+//        writeString(profession3)
     }
 
 //    companion object CREATOR : Parcelable.Creator<User> {
