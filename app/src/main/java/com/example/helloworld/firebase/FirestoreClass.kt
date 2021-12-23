@@ -99,34 +99,36 @@ class FirestoreClass {
      * A function to SignIn using firebase and get the user details from Firestore Database.
      */
     fun loudUserData(activity: Activity) {
-
+        val docRef= mFireStore.collection(Constants.USERS).document(getCurrentUserID())
         // Here we pass the collection name from which we wants the data.
-        mFireStore.collection(Constants.USERS)
-            // The document id to get the Fields of user.
-            .document(getCurrentUserID())
-            .get()
+        docRef.get()
             .addOnSuccessListener { document ->
-                Log.e(activity.javaClass.simpleName, document.toString())
+                if (document.exists()) {
+                    Log.e(activity.javaClass.simpleName, document.toString())
 
-                // Here we have received the document snapshot which is converted into the User Data model object.
-                val loggedInUser = document.toObject(User::class.java)!!
+                    // Here we have received the document snapshot which is converted into the User Data model object.
+                    val loggedInUser = document.toObject(User::class.java)!!
 
-                // TODO(Modify the parameter and check the instance of activity and send the success result to it.)
-                // START
-                // Here call a function of base activity for transferring the result to it.
-                when (activity) {
-                    is SignInActivityG -> {
-                        activity.signInSuccess(loggedInUser)
-                    }
-                    is HomePageActivity -> {
-                        activity.updateNavigationUserDetails(loggedInUser)
-                    }
-                    is MyProfileActivity -> {
-                        activity.setUserDataInUI(loggedInUser)
+                    // TODO(Modify the parameter and check the instance of activity and send the success result to it.)
+                    // START
+                    // Here call a function of base activity for transferring the result to it.
+                    when (activity) {
+                        is SignInActivityG -> {
+                            activity.signInSuccess(loggedInUser)
+                        }
+                        is HomePageActivity -> {
+                            activity.updateNavigationUserDetails(loggedInUser)
+                        }
+                        is MyProfileActivity -> {
+                            activity.setUserDataInUI(loggedInUser)
+                        }
+                        // END
                     }
                     // END
                 }
-                // END
+                else {
+                    Log.d("loadUser", "No such document")
+                }
             }
             .addOnFailureListener { e ->
                 // TODO(Hide the progress dialog in failure function based on instance of activity.)
@@ -143,6 +145,7 @@ class FirestoreClass {
 
                     // END
                 }
+
                 // END
                 Log.e(
                     "SignInUser",

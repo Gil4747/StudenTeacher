@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">studeTeacher</string>
+    <string name="app_name">studenTeacher</string>
     <string-array name="אזור">
         <item>צפון</item>
         <item>מרכז</item>

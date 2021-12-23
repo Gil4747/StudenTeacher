@@ -44,13 +44,13 @@ class SplashActivity : AppCompatActivity() {
             val currentUserID = FirestoreClass().getCurrentUserID()
             // Start the Intro Activity
 
-            if (currentUserID.isNotEmpty()) {
-                // Start the HomePageActivity Activity
-                startActivity(Intent(this@SplashActivity, HomePageActivity::class.java))
-            } else {
+//            if (currentUserID.isNotEmpty()) {
+//                // Start the HomePageActivity Activity
+//                startActivity(Intent(this@SplashActivity, HomePageActivity::class.java))
+//            } else {
                 // Start the Intro Activity
                 startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
-            }
+//            }
             finish() // Call this when your activity is done and should be closed.
             // END
         }, 2500) // Here we pass the delay time in milliSeconds after which the splash activity will disappear.
