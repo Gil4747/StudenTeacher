@@ -31,6 +31,7 @@ data class User(
 //        parcel.readString()!!
     )
 
+
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {

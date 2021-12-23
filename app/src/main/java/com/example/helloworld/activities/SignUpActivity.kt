@@ -1,11 +1,13 @@
 package com.example.helloworld.activities
 import android.annotation.SuppressLint
 import android.app.ActionBar
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.Display
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
@@ -24,8 +26,8 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 import android.widget.EditText
 
 import android.widget.LinearLayout
-
-
+import android.view.ViewGroup
+import com.google.android.gms.auth.api.signin.internal.Storage
 
 
 class SignUpActivity : BaseActivity() {
@@ -38,7 +40,6 @@ class SignUpActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         // This is used to align the xml view to this class
         setContentView(R.layout.activity_sign_up)
-
 
         // This is used to hide the status bar and make the splash screen as a full screen activity.
         window.setFlags(
@@ -114,6 +115,28 @@ class SignUpActivity : BaseActivity() {
         val btn_sign_up = findViewById<Button>(R.id.btn_sign_up)
         btn_sign_up.setOnClickListener {
             registerUser()
+        }
+        btn_teach_register.setOnClickListener {
+            val et_how_many_classes: String = et_how_many_classes.text.toString().trim { it <= ' ' }
+            val num_of_classes:Int = et_how_many_classes.toByte().toInt()
+
+            setContentView(R.layout.activity_sign_up)
+            val ll = findViewById<View>(R.id.ll) as LinearLayout
+            val display: Display =
+                (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+            val width: Int = display.getWidth() / 3
+            for (i in 1..num_of_classes) {
+                val l = LinearLayout(this)
+                l.orientation = LinearLayout.HORIZONTAL
+                val et = EditText(this)
+                val p = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                et.layoutParams = p
+                et.id = i
+                ll.addView(et)
+            }
         }
 //        val btn_i_want_teach = findViewById<Button>(R.id.btn_i_want_teach)
 //        btn_i_want_teach.setOnClickListener {
@@ -199,6 +222,7 @@ class SignUpActivity : BaseActivity() {
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
                             val user = User(firebaseUser.uid, name, registeredEmail,prof1)
+
                             FirestoreClass().registerUser(this, user)
                         } else {
                             Toast.makeText(

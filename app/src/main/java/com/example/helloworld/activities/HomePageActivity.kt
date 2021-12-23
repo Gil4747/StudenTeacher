@@ -25,6 +25,10 @@ import kotlinx.android.synthetic.main.activity_home_page.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.main_content.*
+import com.google.firebase.auth.FirebaseUser
+
+
+
 
 // TODO (Implement the NavigationView.OnNavigationItemSelectedListener and add the implement members of it.)
 class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -83,19 +87,6 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         }
         spn_zoom_hp.adapter = arrayAdapter2
         limitDropDownHeight(spn_zoom_hp)
-
-
-        searchView.queryHint = "What would you like to learn?"
-
-
-
-
-
-
-
-
-
-
         // TODO (Call the setup action bar function here.)
         // START
         setupActionBar()
@@ -110,6 +101,17 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         viewModel = ViewModelProvider(this)
             .get(UsersViewModel::class.java)
         getResponseUsingCallback()
+
+        searchView.queryHint = "What would you like to learn?"
+//        val textViewToChange= findViewById<TextView>(R.id.tv_hello_user)
+//        val currentUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+//        val name2:String = currentUser.
+//        val str = "hello $name2 :)"
+//        textViewToChange.text = str
+
+
+
+
 
     }
     private fun getResponseUsingCallback() {

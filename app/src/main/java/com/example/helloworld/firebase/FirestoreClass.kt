@@ -20,10 +20,11 @@ class FirestoreClass {
 
     // Create a instance of Firebase Firestore
     private val mFireStore = FirebaseFirestore.getInstance()
-
+//    lateinit var currentUser:User
     /**
      * A function to make an entry of the registered user in the firestore database.
      */
+    
     fun registerUser(activity: SignUpActivity, userInfo: User) {
 
         mFireStore.collection(Constants.USERS)
@@ -108,6 +109,7 @@ class FirestoreClass {
 
                     // Here we have received the document snapshot which is converted into the User Data model object.
                     val loggedInUser = document.toObject(User::class.java)!!
+//                    currentUser=User(loggedInUser.id,loggedInUser.name,loggedInUser.email,loggedInUser.profession1)
 
                     // TODO(Modify the parameter and check the instance of activity and send the success result to it.)
                     // START
