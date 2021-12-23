@@ -42,6 +42,8 @@
     <string name="zoom">Zoom</string>
 
     <string name="area">Area</string>
+    <string name="search">Search</string>
+    <string name="search_profession">Search profession</string>
 
     <string name="proff1">Profession1</string>
     <string name="proff2">Profession2</string>

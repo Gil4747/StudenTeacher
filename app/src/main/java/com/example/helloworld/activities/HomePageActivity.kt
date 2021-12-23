@@ -1,13 +1,15 @@
 package com.example.helloworld.activities
 
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.*
+import android.widget.Spinner
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -20,7 +22,9 @@ import com.example.helloworld.firebase.UsersViewModel
 import com.example.helloworld.models.User
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_home_page.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.main_content.*
 
 // TODO (Implement the NavigationView.OnNavigationItemSelectedListener and add the implement members of it.)
 class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +46,56 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
 
+        val areaArr: MutableList<String> = ArrayList()
+        areaArr.add("Area")
+        areaArr.add("צפון")
+        areaArr.add("מרכז")
+        areaArr.add("יהודה  ושומרון")
+        areaArr.add("דרום")
+        val spn_area_hp = findViewById<Spinner>(R.id.spn_area_hp)
+        val arrayAdapter =ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,areaArr)
+        spn_area_hp.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val item=areaArr[position]
+                Toast.makeText(this@HomePageActivity, "$item selected", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        spn_area_hp.adapter = arrayAdapter
+        limitDropDownHeight(spn_area_hp)
+        val zoomArr: MutableList<String> = ArrayList()
+        val spn_zoom_hp = findViewById<Spinner>(R.id.spn_zoom_hp)
+        zoomArr.add("zoom")
+        zoomArr.add("כן")
+        zoomArr.add("לא")
+
+        val arrayAdapter2 =ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,zoomArr)
+        spn_zoom_hp.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val item2=zoomArr[position]
+                Toast.makeText(this@HomePageActivity, "$item2 selected", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        spn_zoom_hp.adapter = arrayAdapter2
+        limitDropDownHeight(spn_zoom_hp)
+
+
+        searchView.queryHint = "What would you like to learn?"
+
+
+
+
+
+
+
+
+
+
         // TODO (Call the setup action bar function here.)
         // START
         setupActionBar()
@@ -56,6 +110,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         viewModel = ViewModelProvider(this)
             .get(UsersViewModel::class.java)
         getResponseUsingCallback()
+
     }
     private fun getResponseUsingCallback() {
         viewModel.getResponseUsingCallback(object : FirebaseCallback {
@@ -183,16 +238,15 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         val search = findViewById<SearchView>(R.id.searchView)
         val listView = findViewById<ListView>(R.id.listView)
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter(this,android.R.layout.simple_list_item_1,list)
-        listView.adapter=adapter
-        search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+        listView.adapter = adapter
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 search.clearFocus()
-                if(list.contains(query)){
+                if (list.contains(query)) {
                     adapter.filter.filter(query)
-                }
-                else{
-                    Toast.makeText(applicationContext,"Item mot found", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(applicationContext, "Item mot found", Toast.LENGTH_LONG).show()
                 }
                 return false
 
@@ -222,4 +276,14 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
             Log.e(TAG, it)
         }
     }
+        @SuppressLint("DiscouragedPrivateApi")
+        fun limitDropDownHeight(spnTest: Spinner) {
+            val popup = Spinner::class.java.getDeclaredField("mPopup")
+            popup.isAccessible = true
+
+            val popupWindow: ListPopupWindow = popup.get(spnTest) as ListPopupWindow
+            popupWindow.height = (200 * resources.displayMetrics.density).toInt()
+        }
+
+
 }

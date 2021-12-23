@@ -1,4 +1,5 @@
 package com.example.helloworld.activities
+import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.content.Intent
 import android.net.Uri
@@ -247,6 +248,7 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
+    @SuppressLint("DiscouragedPrivateApi")
     fun limitDropDownHeight(spnTest: Spinner) {
         val popup = Spinner::class.java.getDeclaredField("mPopup")
         popup.isAccessible = true

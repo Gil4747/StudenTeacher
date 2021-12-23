@@ -12,6 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/ic_background"
     tools:context=".activities.HomePageActivity">
 
     <LinearLayout
@@ -50,40 +51,27 @@
 
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
-                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_area_hp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/area"
-                        android:textSize="@dimen/et_text_size" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                <Spinner
+                  android:id="@+id/spn_zoom_hp"
+                  android:layout_width="match_parent"
+                  android:layout_height="50dp"
+                  android:layout_margin="16dp"
+                  android:layout_marginBottom="0dp"
+                  android:background="@drawable/custom_background"
+                  android:spinnerMode="dropdown"
+                  app:boxBackgroundColor="@color/colorAccent" />
 
 
-                -
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
-                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"
-                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_zoom"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/zoom"
-                        android:inputType="textPassword"
-                        android:textSize="@dimen/et_text_size" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                <Spinner
+                  android:id="@+id/spn_area_hp"
+                  android:layout_width="match_parent"
+                  android:layout_height="50dp"
+                  android:layout_margin="16dp"
+                  android:layout_marginBottom="0dp"
+                  android:background="@drawable/custom_background"
+                  android:spinnerMode="dropdown"
+                  app:boxBackgroundColor="@color/colorAccent" />
 
                 <SearchView
                     android:id="@+id/searchView"
@@ -109,11 +97,10 @@
                     android:layout_marginTop="@dimen/sign_up_screen_btn_marginTop"
                     android:layout_marginEnd="@dimen/btn_marginStartEnd"
                     android:background="@drawable/shape_button_rounded"
-                    android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:paddingTop="@dimen/btn_paddingTopBottom"
                     android:paddingBottom="@dimen/btn_paddingTopBottom"
-                    android:text="@string/sign_in"
+                    android:text="@string/search"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/btn_text_size" />
 
