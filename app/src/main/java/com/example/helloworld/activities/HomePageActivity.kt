@@ -1,17 +1,22 @@
 package com.example.helloworld.activities
 
 import android.app.Activity
+import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.example.helloworld.R
+import com.example.helloworld.firebase.FirebaseCallback
 import com.example.helloworld.firebase.FirestoreClass
+import com.example.helloworld.firebase.Response
+import com.example.helloworld.firebase.UsersViewModel
 import com.example.helloworld.models.User
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_home_page.*
@@ -29,6 +34,8 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         //A unique code for starting the activity for result
         const val MY_PROFILE_REQUEST_CODE: Int = 11
     }
+    private var list: MutableList<String> = ArrayList()
+    private lateinit var viewModel: UsersViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //This call the parent constructor
@@ -46,6 +53,16 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         nav_view.setNavigationItemSelectedListener(this)
         // END
         FirestoreClass().loudUserData(this)
+        viewModel = ViewModelProvider(this)
+            .get(UsersViewModel::class.java)
+        getResponseUsingCallback()
+    }
+    private fun getResponseUsingCallback() {
+        viewModel.getResponseUsingCallback(object : FirebaseCallback {
+            override fun onResponse(response: Response) {
+                print(response)
+            }
+        })
     }
 
     // TODO (Add a onBackPressed function and check if the navigation drawer is open or closed.)
@@ -162,5 +179,47 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
             drawer_layout.openDrawer(GravityCompat.START)
         }
     }
+    private fun print(response: Response) {
+        val search = findViewById<SearchView>(R.id.searchView)
+        val listView = findViewById<ListView>(R.id.listView)
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter(this,android.R.layout.simple_list_item_1,list)
+        listView.adapter=adapter
+        search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                search.clearFocus()
+                if(list.contains(query)){
+                    adapter.filter.filter(query)
+                }
+                else{
+                    Toast.makeText(applicationContext,"Item mot found", Toast.LENGTH_LONG).show()
+                }
+                return false
 
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+
+        }
+
+        )
+        response.users?.let { users ->
+            users.forEach { users ->
+                users.profession1?.let {
+                    Log.i(TAG, it)
+                    if (list.contains(it)) {
+                    } else {
+                        list.add(it)
+                    }
+                }
+            }
+        }
+
+        response.exception?.message?.let {
+            Log.e(TAG, it)
+        }
+    }
 }
