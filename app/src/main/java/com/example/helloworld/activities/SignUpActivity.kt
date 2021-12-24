@@ -120,7 +120,7 @@ class SignUpActivity : BaseActivity() {
             val et_how_many_classes: String = et_how_many_classes.text.toString().trim { it <= ' ' }
             val num_of_classes:Int = et_how_many_classes.toByte().toInt()
 
-            setContentView(R.layout.activity_sign_up)
+//            setContentView(R.layout.activity_sign_up)
             val ll = findViewById<View>(R.id.ll) as LinearLayout
             val display: Display =
                 (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
