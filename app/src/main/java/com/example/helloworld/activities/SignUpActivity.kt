@@ -1,8 +1,6 @@
 package com.example.helloworld.activities
 import android.annotation.SuppressLint
-import android.app.ActionBar
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
@@ -27,11 +25,11 @@ import android.widget.EditText
 
 import android.widget.LinearLayout
 import android.view.ViewGroup
-import com.google.android.gms.auth.api.signin.internal.Storage
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 
 class SignUpActivity : BaseActivity() {
-
+    var allEd: MutableList<EditText> = ArrayList()
     /**
      * This function is auto created by Android when the Activity Class is created.
      */
@@ -121,6 +119,7 @@ class SignUpActivity : BaseActivity() {
             val num_of_classes:Int = et_how_many_classes.toByte().toInt()
 
 //            setContentView(R.layout.activity_sign_up)
+//            val allEds: MutableList<EditText> = ArrayList()
             val ll = findViewById<View>(R.id.ll) as LinearLayout
             val display: Display =
                 (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
@@ -135,6 +134,7 @@ class SignUpActivity : BaseActivity() {
                 )
                 et.layoutParams = p
                 et.id = i
+                allEd.add(et)
                 ll.addView(et)
             }
         }
@@ -197,14 +197,15 @@ class SignUpActivity : BaseActivity() {
      * For more details visit: https://firebase.google.com/docs/auth/android/custom-auth
      */
     private fun registerUser() {
-        val name: String = et_name.text.toString().trim { it <= ' ' }
-        val email: String = et_email.text.toString().trim { it <= ' ' }
-        val password: String = et_password.text.toString().trim { it <= ' ' }
-        val phon: String = et_phon_num.text.toString().trim { it <= ' ' }
-        val prof1: String = et_prof1.text.toString().trim { it <= ' ' }
+        val name: String = et_name_signUp.text.toString().trim { it <= ' ' }
+        val email: String = et_email_signUp.text.toString().trim { it <= ' ' }
+        val password: String = et_password_signUp.text.toString().trim { it <= ' ' }
+        val phon: String = et_mobile_signUp.text.toString().trim { it <= ' ' }
+        val et_how_many_classes: String = et_how_many_classes.text.toString().trim { it <= ' ' }
+//        val prof1: String = et_prof1_signUp.text.toString().trim { it <= ' ' }
 //        val prof2: String = et_prof2.text.toString().trim { it <= ' ' }
 //        val prof3: String = et_prof3.text.toString().trim { it <= ' ' }
-        val Cpassword: String = et_confirm_password.text.toString().trim { it <= ' ' }
+        val Cpassword: String = et_confirm_password_signUp.text.toString().trim { it <= ' ' }
 
         if (validateForm(name, email, password, Cpassword,phon)) {
             showProgressDialog(resources.getString(R.string.please_wait))
@@ -221,9 +222,20 @@ class SignUpActivity : BaseActivity() {
                             val firebaseUser: FirebaseUser = task.result!!.user!!
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
-                            val user = User(firebaseUser.uid, name, registeredEmail,prof1)
+                            if(allEd.isNotEmpty()){
+                                var allProfessions: ArrayList<String> = ArrayList()
+                                for (i in allEd){
+                                    allProfessions.add( i.text.toString().trim { it <= ' ' })
+                                }
+                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions)
+                                FirestoreClass().registerUser(this, user)
+                            }
+                            else {
+                                val user = User(firebaseUser.uid, name, registeredEmail)
+                                FirestoreClass().registerUser(this, user)
+                            }
 
-                            FirestoreClass().registerUser(this, user)
+
                         } else {
                             Toast.makeText(
                                 this@SignUpActivity,

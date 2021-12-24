@@ -44,7 +44,7 @@ class FirestoreClass {
                     "Error writing document", e
                 )
             }
-        if(userInfo.profession1.isNotEmpty()) {
+        if(userInfo.allProfession.isNotEmpty()) {
             mFireStore.collection(Constants.TEACHERS)
                 // Document ID for users fields. Here the document it is the User ID.
                 .document(getCurrentUserID())

@@ -81,7 +81,7 @@
                     android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_name"
+                        android:id="@+id/et_name_signUp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/name"
@@ -100,7 +100,7 @@
                     android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_email"
+                        android:id="@+id/et_email_signUp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/email"
@@ -120,7 +120,7 @@
                     android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_password"
+                        android:id="@+id/et_password_signUp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/password"
@@ -137,7 +137,7 @@
                     android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_confirm_password"
+                        android:id="@+id/et_confirm_password_signUp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="אימות סיסמא"
@@ -153,7 +153,7 @@
                     android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/et_phon_num"
+                        android:id="@+id/et_mobile_signUp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="מספר טלפון"
@@ -185,7 +185,7 @@
                         android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
 
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/et_prof1"
+                            android:id="@+id/et_prof1_signUp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="first subject"

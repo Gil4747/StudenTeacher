@@ -2,24 +2,40 @@ package com.example.helloworld.activities
 
 import android.Manifest
 import android.app.Activity
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.Display
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.webkit.MimeTypeMap
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.helloworld.R
+import com.example.helloworld.firebase.FirebaseCallback
 import com.example.helloworld.firebase.FirestoreClass
+import com.example.helloworld.firebase.Response
+import com.example.helloworld.firebase.UsersViewModel
 import com.example.helloworld.models.User
 import com.example.helloworld.utils.Constants
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_my_profile.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.io.IOException
 
 
@@ -29,6 +45,7 @@ class MyProfileActivity : BaseActivity() {
         private const val READ_STORAGE_PERMISSION_CODE =1
         private const val PICK_IMAGE_REQUEST_CODE =2
     }
+    private lateinit var viewModel: UsersViewModel
     // TODO (Add a global variable for URI of a selected image from phone storage.)
     // Add a global variable for URI of a selected image from phone storage.
     private var mSelectedImageFileUri: Uri? = null
@@ -37,6 +54,7 @@ class MyProfileActivity : BaseActivity() {
     // START
     // A global variable for user details.
     private lateinit var mUserDetails: User
+
 
     // A global variable for a user profile image URL
     private var mProfileImageURL: String = ""
@@ -49,6 +67,10 @@ class MyProfileActivity : BaseActivity() {
         // TODO (Call a function to setup action bar.)
         setupActionBar()
         FirestoreClass().loudUserData(this)
+        viewModel = ViewModelProvider(this)
+            .get(UsersViewModel::class.java)
+        getResponseUsingCallback()
+
         // TODO (Add a click event for iv_profile_user_image.)
         // START
         iv_profile_user_image.setOnClickListener {
@@ -87,7 +109,29 @@ class MyProfileActivity : BaseActivity() {
                 updateUserProfileData()
             }
         }
+        getResponseUsingCallback()
         // END
+//        Toast.makeText(this,SignUpActivity().allEd.size,Toast.LENGTH_LONG)
+        if(HomePageActivity.currentUser.allProfession.isNotEmpty()) {
+//            setContentView(R.layout.activity_sign_up)
+//            val allEds: MutableList<EditText> = ArrayList()
+            val ll_my_profile = findViewById<View>(R.id.ll_my_profile) as LinearLayout
+            val display: Display =
+                (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+            val width: Int = display.getWidth() / 3
+            for (i in 1..HomePageActivity.currentUser.allProfession.size) {
+                val l = LinearLayout(this)
+                l.orientation = LinearLayout.HORIZONTAL
+                val et = EditText(this)
+                val p = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                et.layoutParams = p
+                et.id = i * 5
+                ll_my_profile.addView(et)
+            }
+        }
     }
     // TODO (Get the result of the image selection based on the constant code.)
     // START
@@ -200,10 +244,22 @@ class MyProfileActivity : BaseActivity() {
         if (et_name.text.toString() != mUserDetails.name) {
             userHashMap[Constants.NAME] = et_name.text.toString()
         }
-
-        if (et_prof1.text.toString() != mUserDetails.profession1) {
-            userHashMap[Constants.NAME] = et_name.text.toString()
+        if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
+            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
         }
+        if(SignUpActivity().allEd.isNotEmpty()) {
+            var count = 0
+            for (i in SignUpActivity().allEd) {
+                if (i.text.toString() != mUserDetails.allProfession[count]) {
+                    userHashMap["profession$count"] = i.text.toString()
+                }
+                count++
+            }
+        }
+
+//        if (et_prof1.text.toString() != mUserDetails.profession1) {
+//            userHashMap[Constants.PROFESSION1] = et_prof1.text.toString()
+//        }
 
 //        if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
 //            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
@@ -238,9 +294,9 @@ class MyProfileActivity : BaseActivity() {
 
         et_name.setText(user.name)
         et_email.setText(user.email)
-//        if (user.mobile != 0L) {
-//            et_mobile.setText(user.mobile.toString())
-//        }
+        if (user.mobile != 0L) {
+            et_mobile.setText(user.mobile.toString())
+        }
     }
     // END
 
@@ -327,5 +383,32 @@ class MyProfileActivity : BaseActivity() {
         finish()
     }
     // END
+    private fun getResponseUsingCallback() {
+        viewModel.getResponseUsingCallback(object : FirebaseCallback {
+            override fun onResponse(response: Response) {
+                val u=getCurrentUser(response)
+                if(u!=null) {
+                    HomePageActivity.currentUser=User(u.id,u.name,u.email,u.allProfession,u.mobile,u.image,u.fcmToken,u.area,u.gender)
+                }
+
+            }
+        })
+    }
+    private fun getCurrentUser(response: Response): User? {
+        response.users?.let { users ->
+            users.forEach { user ->
+                user.email.let {
+                   if(user.id == FirestoreClass().getCurrentUserID())
+                       return user
+                }
+            }
+        }
+
+        response.exception?.message?.let {
+            Log.e(ContentValues.TAG, it)
+        }
+        return null
+
+    }
 
 }

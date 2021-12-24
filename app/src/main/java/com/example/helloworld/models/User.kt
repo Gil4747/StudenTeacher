@@ -6,10 +6,9 @@ data class User(
     val id: String = "",
     val name: String = "",
     val email: String = "",
-    val profession1: String = "",
+    var allProfession: ArrayList<String> = ArrayList(),
+    val mobile: Long = 0,
     val image: String = "",
-
-//    val mobile: Long = 0,
     val fcmToken: String = "",
     val area: String = "",
     val gender: String = ""
@@ -21,8 +20,8 @@ data class User(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readString()!!,
-//        parcel.readLong(),
+        parcel.createStringArrayList()!!,
+        parcel.readLong(),
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
@@ -31,17 +30,16 @@ data class User(
 //        parcel.readString()!!
     )
 
-
+   
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(id)
         writeString(name)
         writeString(email)
-        writeString(profession1)
+        writeStringList(allProfession)
+        writeLong(mobile)
         writeString(image)
-
-//        writeLong(mobile)
         writeString(fcmToken)
         writeString(area)
         writeString(gender)

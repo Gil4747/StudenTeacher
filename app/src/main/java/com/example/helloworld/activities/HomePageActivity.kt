@@ -2,6 +2,7 @@ package com.example.helloworld.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -41,6 +42,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
     companion object {
         //A unique code for starting the activity for result
         const val MY_PROFILE_REQUEST_CODE: Int = 11
+        lateinit var currentUser: User
     }
     private var list: MutableList<String> = ArrayList()
     private lateinit var viewModel: UsersViewModel
@@ -113,13 +115,6 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
 
 
 
-    }
-    private fun getResponseUsingCallback() {
-        viewModel.getResponseUsingCallback(object : FirebaseCallback {
-            override fun onResponse(response: Response) {
-                print(response)
-            }
-        })
     }
 
     // TODO (Add a onBackPressed function and check if the navigation drawer is open or closed.)
@@ -263,12 +258,16 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
 
         )
         response.users?.let { users ->
-            users.forEach { users ->
-                users.profession1?.let {
-                    Log.i(TAG, it)
-                    if (list.contains(it)) {
-                    } else {
-                        list.add(it)
+            users.forEach { user ->
+                user.allProfession.let {
+                    for (j in user.allProfession) {
+                        var count = 0
+                        Log.i(TAG, j)
+                        if (list.contains(j)) {
+                        } else {
+                            list.add(j)
+                        }
+
                     }
                 }
             }
@@ -286,6 +285,39 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
             val popupWindow: ListPopupWindow = popup.get(spnTest) as ListPopupWindow
             popupWindow.height = (200 * resources.displayMetrics.density).toInt()
         }
+    private fun getResponseUsingCallback() {
+        viewModel.getResponseUsingCallback(object : FirebaseCallback {
+            override fun onResponse(response: Response) {
+                print(response)
+                val u=getCurrentUser(response)
+                if(u!=null) {
+                    currentUser=User(u.id,u.name,u.email,u.allProfession,u.mobile,u.image,u.fcmToken,u.area,u.gender)
+                    Toast.makeText(this@HomePageActivity, "${currentUser.allProfession}", Toast.LENGTH_LONG).show()
+
+                }
+
+            }
+        })
+    }
+    private fun getCurrentUser(response: Response): User? {
+        response.users?.let { users ->
+            users.forEach { user ->
+                user.email.let {
+                    Toast.makeText(this@HomePageActivity,user.id,Toast.LENGTH_LONG).show()
+                    if(user.id == FirestoreClass().getCurrentUserID()) {
+                        return user
+                    }
+                }
+            }
+        }
+
+        response.exception?.message?.let {
+            Log.e(ContentValues.TAG, it)
+        }
+        return null
+
+    }
+
 
 
 }
