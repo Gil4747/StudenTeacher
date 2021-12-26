@@ -42,6 +42,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         //A unique code for starting the activity for result
         const val MY_PROFILE_REQUEST_CODE: Int = 11
         lateinit var currentUser: User
+        private var teachers: MutableList<User> = ArrayList()
     }
     private var list: MutableList<String> = ArrayList()
     private lateinit var viewModel: UsersViewModel
@@ -110,6 +111,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
 //        val str = "hello $name2 :)"
 //        textViewToChange.text = str
         btn_search.setOnClickListener {
+            Toast.makeText(this,"${teachers}", Toast.LENGTH_LONG).show()
             startActivity(Intent(this@HomePageActivity, MainActivity2::class.java))
         }
 
@@ -258,6 +260,8 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         response.users?.let { users ->
             users.forEach { user ->
                 user.allProfession.let {
+                    if(user.allProfession.size>0)
+                        teachers.add(user)
                     for (j in user.allProfession) {
                         var count = 0
                         Log.i(TAG, j)
@@ -275,14 +279,14 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
             Log.e(TAG, it)
         }
     }
-        @SuppressLint("DiscouragedPrivateApi")
-        fun limitDropDownHeight(spnTest: Spinner) {
-            val popup = Spinner::class.java.getDeclaredField("mPopup")
-            popup.isAccessible = true
+    @SuppressLint("DiscouragedPrivateApi")
+    fun limitDropDownHeight(spnTest: Spinner) {
+        val popup = Spinner::class.java.getDeclaredField("mPopup")
+        popup.isAccessible = true
 
-            val popupWindow: ListPopupWindow = popup.get(spnTest) as ListPopupWindow
-            popupWindow.height = (200 * resources.displayMetrics.density).toInt()
-        }
+        val popupWindow: ListPopupWindow = popup.get(spnTest) as ListPopupWindow
+        popupWindow.height = (200 * resources.displayMetrics.density).toInt()
+    }
     private fun getResponseUsingCallback() {
         viewModel.getResponseUsingCallback(object : FirebaseCallback {
             override fun onResponse(response: Response) {
