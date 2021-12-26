@@ -12,6 +12,8 @@ import com.example.helloworld.activities.SignInActivityG
 import com.example.helloworld.activities.SignUpActivity
 import com.example.helloworld.models.User
 import com.example.helloworld.utils.Constants
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 /**
  * A custom class where we will add the operation performed for the firestore database.
@@ -20,12 +22,15 @@ class FirestoreClass {
 
     // Create a instance of Firebase Firestore
     private val mFireStore = FirebaseFirestore.getInstance()
+    private lateinit var mDbRef: DatabaseReference
 //    lateinit var currentUser:User
     /**
      * A function to make an entry of the registered user in the firestore database.
      */
     
     fun registerUser(activity: SignUpActivity, userInfo: User) {
+        if(userInfo.allProfession.isEmpty())
+            addUserToDatabase(userInfo.name,userInfo.email, FirebaseAuth.getInstance().currentUser?.uid!!)
 
         mFireStore.collection(Constants.USERS)
             // Document ID for users fields. Here the document it is the User ID.
@@ -44,7 +49,10 @@ class FirestoreClass {
                     "Error writing document", e
                 )
             }
+
+
         if(userInfo.allProfession.isNotEmpty()) {
+            addUserToDatabase(userInfo.name,userInfo.email, FirebaseAuth.getInstance().currentUser?.uid!!,userInfo.allProfession)
             mFireStore.collection(Constants.TEACHERS)
                 // Document ID for users fields. Here the document it is the User ID.
                 .document(getCurrentUserID())
@@ -63,6 +71,14 @@ class FirestoreClass {
                     )
                 }
         }
+    }
+    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>) {
+        mDbRef = FirebaseDatabase.getInstance().reference
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions))
+    }
+    private fun addUserToDatabase(name: String, email: String, uid: String) {
+        mDbRef = FirebaseDatabase.getInstance().reference
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email))
     }
     // TODO (Create a function to update the user profile data into the database.)
     // START

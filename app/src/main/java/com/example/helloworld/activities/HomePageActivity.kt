@@ -27,8 +27,7 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.main_content.*
 import com.google.firebase.auth.FirebaseUser
-
-
+import kotlinx.android.synthetic.main.activity_sign_in_g.*
 
 
 // TODO (Implement the NavigationView.OnNavigationItemSelectedListener and add the implement members of it.)
@@ -110,10 +109,9 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
 //        val name2:String = currentUser.
 //        val str = "hello $name2 :)"
 //        textViewToChange.text = str
-
-
-
-
+        btn_search.setOnClickListener {
+            startActivity(Intent(this@HomePageActivity, MainActivity2::class.java))
+        }
 
     }
 

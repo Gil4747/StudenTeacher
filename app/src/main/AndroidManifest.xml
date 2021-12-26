@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".activities.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MainActivity2"
+            android:exported="false" />
+        <activity
             android:name=".MainContentActivity"
             android:exported="false" />
         <activity

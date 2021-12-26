@@ -25,11 +25,14 @@ import android.widget.EditText
 
 import android.widget.LinearLayout
 import android.view.ViewGroup
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.nav_header_main.*
 
 
 class SignUpActivity : BaseActivity() {
     var allEd: MutableList<EditText> = ArrayList()
+    private lateinit var mDbRef: DatabaseReference
     /**
      * This function is auto created by Android when the Activity Class is created.
      */
@@ -213,13 +216,13 @@ class SignUpActivity : BaseActivity() {
                 .addOnCompleteListener(
                     OnCompleteListener<AuthResult> { task ->
 
-
-
                         // If the registration is successfully done
                         if (task.isSuccessful) {
 
                             // Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
+                            addUserToDatabase(name,email, firebaseUser.uid)
+
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
                             if(allEd.isNotEmpty()){
@@ -228,6 +231,7 @@ class SignUpActivity : BaseActivity() {
                                     allProfessions.add( i.text.toString().trim { it <= ' ' })
                                 }
                                 val user = User(firebaseUser.uid, name, registeredEmail,allProfessions)
+                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions)
                                 FirestoreClass().registerUser(this, user)
                             }
                             else {
@@ -245,6 +249,15 @@ class SignUpActivity : BaseActivity() {
                         }
                     })
         }
+    }
+
+    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>) {
+        mDbRef = FirebaseDatabase.getInstance().reference
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions))
+    }
+    private fun addUserToDatabase(name: String, email: String, uid: String) {
+        mDbRef = FirebaseDatabase.getInstance().reference
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email))
     }
 
 
