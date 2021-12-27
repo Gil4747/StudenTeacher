@@ -42,7 +42,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         //A unique code for starting the activity for result
         const val MY_PROFILE_REQUEST_CODE: Int = 11
         lateinit var currentUser: User
-        private var teachers: MutableList<User> = ArrayList()
+//        private var teachers: MutableList<User> = ArrayList()
     }
     private var list: MutableList<String> = ArrayList()
     private lateinit var viewModel: UsersViewModel
@@ -111,7 +111,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
 //        val str = "hello $name2 :)"
 //        textViewToChange.text = str
         btn_search.setOnClickListener {
-            Toast.makeText(this,"${teachers}", Toast.LENGTH_LONG).show()
+//            Toast.makeText(this,"${teachers}", Toast.LENGTH_LONG).show()
             startActivity(Intent(this@HomePageActivity, MainActivity2::class.java))
         }
 
@@ -260,8 +260,8 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         response.users?.let { users ->
             users.forEach { user ->
                 user.allProfession.let {
-                    if(user.allProfession.size>0)
-                        teachers.add(user)
+//                    if(user.allProfession.size>0)
+//                        teachers.add(user)
                     for (j in user.allProfession) {
                         var count = 0
                         Log.i(TAG, j)
@@ -293,7 +293,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
                 print(response)
                 val u=getCurrentUser(response)
                 if(u!=null) {
-                    currentUser=User(u.id,u.name,u.email,u.allProfession,u.mobile,u.image,u.fcmToken,u.area,u.gender)
+                    currentUser=User(u.uid,u.name,u.email,u.allProfession,u.mobile,u.image,u.fcmToken,u.area,u.gender)
                     Toast.makeText(this@HomePageActivity, "${currentUser.allProfession}", Toast.LENGTH_LONG).show()
 
                 }
@@ -305,8 +305,8 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         response.users?.let { users ->
             users.forEach { user ->
                 user.email.let {
-                    Toast.makeText(this@HomePageActivity,user.id,Toast.LENGTH_LONG).show()
-                    if(user.id == FirestoreClass().getCurrentUserID()) {
+                    Toast.makeText(this@HomePageActivity,user.uid,Toast.LENGTH_LONG).show()
+                    if(user.uid == FirestoreClass().getCurrentUserID()) {
                         return user
                     }
                 }

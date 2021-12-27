@@ -3,7 +3,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class User(
-    val id: String = "",
+    val uid: String = "",
     val name: String = "",
     val email: String = "",
     var allProfession: ArrayList<String> = ArrayList(),
@@ -34,7 +34,7 @@ data class User(
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeString(id)
+        writeString(uid)
         writeString(name)
         writeString(email)
         writeStringList(allProfession)

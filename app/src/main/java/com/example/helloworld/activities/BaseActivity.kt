@@ -16,6 +16,7 @@ open class BaseActivity : AppCompatActivity() {
     private lateinit var mProgressDialog: Dialog
 
    override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
     }

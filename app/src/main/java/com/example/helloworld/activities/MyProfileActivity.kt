@@ -388,7 +388,7 @@ class MyProfileActivity : BaseActivity() {
             override fun onResponse(response: Response) {
                 val u=getCurrentUser(response)
                 if(u!=null) {
-                    HomePageActivity.currentUser=User(u.id,u.name,u.email,u.allProfession,u.mobile,u.image,u.fcmToken,u.area,u.gender)
+                    HomePageActivity.currentUser=User(u.uid,u.name,u.email,u.allProfession,u.mobile,u.image,u.fcmToken,u.area,u.gender)
                 }
 
             }
@@ -398,7 +398,7 @@ class MyProfileActivity : BaseActivity() {
         response.users?.let { users ->
             users.forEach { user ->
                 user.email.let {
-                   if(user.id == FirestoreClass().getCurrentUserID())
+                   if(user.uid == FirestoreClass().getCurrentUserID())
                        return user
                 }
             }

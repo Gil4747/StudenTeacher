@@ -13,6 +13,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/ic_background"
+    tools:viewBindingIgnore="true"
     tools:context=".activities.HomePageActivity">
 
     <LinearLayout

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helloworld.R
@@ -25,14 +26,19 @@ class ChatActivity : AppCompatActivity() {
     var receiveRoom: String? =null
     var senderRoom: String? =null
 
-
+//    private lateinit var binding: ResultProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+//        binding = ResultProfileBinding.inflate(layoutInflater)
+//        val view = binding.root
+//        setContentView(view)
+       setContentView(R.layout.activity_chat)
 
-
+//        val intent = Intent()
         val name = intent.getStringExtra("name")
         val receiverUid = intent.getStringExtra("uid")
+        Log.d("currentId", "${receiverUid}")
+//        ksdljjjjjjjjjjakdljdslkjflkdj
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
 //        Toast.makeText(this, senderUid, Toast.LENGTH_LONG)
         mDbRef= FirebaseDatabase.getInstance().reference

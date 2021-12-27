@@ -3,6 +3,7 @@ package com.example.helloworld.activities
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,21 +14,26 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class MainActivity2 : AppCompatActivity() {
+    companion object {
+        private lateinit var userList: ArrayList<User>
+    }
     private lateinit var userRecyclerView: RecyclerView
-    private lateinit var userList: ArrayList<User>
+
     private lateinit var adapter: UserAdapter
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDbRef: DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
         mAuth = FirebaseAuth.getInstance()
-        mDbRef = FirebaseDatabase.getInstance().getReference()
+        mDbRef = FirebaseDatabase.getInstance().reference
 
         userList = ArrayList()
         adapter = UserAdapter(this,userList)
+
 
         userRecyclerView = findViewById(R.id.UserRecyclerView)
 
@@ -40,10 +46,14 @@ class MainActivity2 : AppCompatActivity() {
                 userList.clear()
                 for (postSnapshot in snapshot.children){
                     val currentUser = postSnapshot.getValue(User::class.java)
-                    if(mAuth.currentUser?.uid != currentUser?.id){
+                    Log.d("Main2", "${mAuth.currentUser?.uid}")
+                    Log.d("Main2-currentId", "${currentUser?.uid}")
+                    if(mAuth.currentUser?.uid != currentUser?.uid){
                         userList.add(currentUser!!)
+//                        Log.d("Main2", "$userList")
                     }
                 }
+
                 adapter.notifyDataSetChanged()
             }
 

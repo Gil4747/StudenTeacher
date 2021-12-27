@@ -22,9 +22,7 @@
         <activity
             android:name=".activities.MainActivity2"
             android:exported="false" />
-        <activity
-            android:name=".MainContentActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activities.MyProfileActivity"
             android:exported="false"

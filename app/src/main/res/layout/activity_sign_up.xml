@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_background"
     android:orientation="vertical"
+    tools:viewBindingIgnore="true"
     tools:context=".activities.SignUpActivity">
 
     <!--END-->

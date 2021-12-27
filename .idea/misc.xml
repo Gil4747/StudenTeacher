@@ -71,22 +71,30 @@
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/drawable/nav_header_main_background.xml" value="0.14537037037037037" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/drawable/send.xml" value="0.14537037037037037" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/drawable/shape_button_rounded.xml" value="0.14537037037037037" />
-        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_chat.xml" value="0.14895833333333333" />
+        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_chat.xml" value="0.22" />
+        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_intro.xml" value="0.1" />
+        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_lates_messages.xml" value="0.1796875" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_main.xml" value="0.1171875" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_main2.xml" value="0.1171875" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_my_profile.xml" value="0.10144927536231885" />
+        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_new_message.xml" value="0.1796875" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_sign_in.xml" value="0.1171875" />
+        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_sign_in_g.xml" value="0.1" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_sign_up.xml" value="0.10144927536231885" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_spinner.xml" value="0.13541666666666666" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/activity_splash.xml" value="0.13541666666666666" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/app_bar_main.xml" value="0.9032258064516129" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/dialog_progress.xml" value="0.13541666666666666" />
-        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/receive.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/dropdown_item.xml" value="0.121875" />
+        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/main_content.xml" value="0.1" />
+        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/receive.xml" value="0.22" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/sent.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/user_layout.xml" value="0.1" />
+        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/layout/user_row_new_message.xml" value="0.1796875" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/menu/menu.xml" value="0.14895833333333333" />
         <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/menu/menu2.xml" value="0.14895833333333333" />
+        <entry key="..\:/Users/Gil/StudenTeacher/app/src/main/res/menu/nav_menu.xml" value="0.1796875" />
       </map>
     </option>
   </component>
