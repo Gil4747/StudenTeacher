@@ -32,6 +32,11 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 
 class SignUpActivity : BaseActivity() {
     var allEd: MutableList<EditText> = ArrayList()
+    companion object {
+
+        lateinit var itemA: String
+        lateinit var itemG: String
+    }
     private lateinit var mDbRef: DatabaseReference
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -69,8 +74,8 @@ class SignUpActivity : BaseActivity() {
                 position: Int,
                 id: Long
             ) {
-                val item = list[position]
-                Toast.makeText(this@SignUpActivity, "$item selected", Toast.LENGTH_SHORT).show()
+                itemA = list[position]
+                Toast.makeText(this@SignUpActivity, "$itemA selected", Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -98,8 +103,8 @@ class SignUpActivity : BaseActivity() {
                 position: Int,
                 id: Long
             ) {
-                val item = list2[position]
-                Toast.makeText(this@SignUpActivity, "$item selected", Toast.LENGTH_SHORT).show()
+                itemG = list2[position]
+                Toast.makeText(this@SignUpActivity, "$itemG selected", Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -204,6 +209,8 @@ class SignUpActivity : BaseActivity() {
         val email: String = et_email_signUp.text.toString().trim { it <= ' ' }
         val password: String = et_password_signUp.text.toString().trim { it <= ' ' }
         val phon: String = et_mobile_signUp.text.toString().trim { it <= ' ' }
+//        val area: String = spn_area_R.text.toString().trim { it <= ' ' }
+//        val gender: String = spn_gender.text.toString().trim { it <= ' ' }
         val et_how_many_classes: String = et_how_many_classes.text.toString().trim { it <= ' ' }
 //        val prof1: String = et_prof1_signUp.text.toString().trim { it <= ' ' }
 //        val prof2: String = et_prof2.text.toString().trim { it <= ' ' }
@@ -230,7 +237,7 @@ class SignUpActivity : BaseActivity() {
                                 for (i in allEd){
                                     allProfessions.add( i.text.toString().trim { it <= ' ' })
                                 }
-                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions)
+                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,0,itemA,itemG)
                                 addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions)
                                 FirestoreClass().registerUser(this, user)
                             }

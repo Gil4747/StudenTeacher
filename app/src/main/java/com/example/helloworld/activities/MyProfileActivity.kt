@@ -292,11 +292,21 @@ class MyProfileActivity : BaseActivity() {
             .placeholder(R.drawable.ic_user_place_holder)
             .into(iv_profile_user_image)
 
+
         et_name.setText(user.name)
         et_email.setText(user.email)
+        et_area.setText(user.area)
+        et_gender.setText(user.gender)
         if (user.mobile != 0L) {
             et_mobile.setText(user.mobile.toString())
         }
+//        if(SignUpActivity().allEd.isNotEmpty()) {
+//            var count = 0
+//            for (i in SignUpActivity().allEd) {
+//                  i.setText("ckvkck")
+//                }
+//                count++
+//            }
     }
     // END
 

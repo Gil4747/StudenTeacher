@@ -141,7 +141,7 @@
                         android:id="@+id/et_confirm_password_signUp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="אימות סיסמא"
+                        android:hint="@string/confirm_password"
                         android:inputType="textPassword"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -157,10 +157,10 @@
                         android:id="@+id/et_mobile_signUp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="מספר טלפון"
+                        android:hint="@string/phone"
                         android:inputType="phone"
                         android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+
 
 <!--                <com.google.android.material.textfield.TextInputLayout-->
 <!--                    android:layout_width="match_parent"-->
@@ -178,19 +178,6 @@
 <!--                        android:textSize="16sp" />-->
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
-                        android:layout_marginTop="@dimen/authentication_screen_til_marginTop"
-                        android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
-
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/et_prof1_signUp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="first subject"
-                            android:textSize="16sp" />
 <!--                    </com.google.android.material.textfield.TextInputLayout>-->
 
 
@@ -250,7 +237,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="0dp"
                         android:layout_marginBottom="0dp"
-                        android:background="@drawable/custom_background"
+                        android:background="@drawable/message_box_background"
                         android:spinnerMode="dropdown"
                         app:boxBackgroundColor="@color/colorAccent" />
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -261,7 +248,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="0dp"
                         android:layout_marginBottom="0dp"
-                        android:background="@drawable/custom_background"
+                        android:background="@drawable/message_box_background"
                         android:spinnerMode="dropdown"
                         app:boxBackgroundColor="@color/colorAccent" />
 
@@ -269,14 +256,17 @@
                 </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
                 android:id="@+id/ll"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
                 <EditText
                     android:id="@+id/et_how_many_classes"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
+                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"
+                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd"
                     android:hint="How many classes you want to teach?">
 
                     <requestFocus />
@@ -285,8 +275,13 @@
 
                 <Button
                     android:id="@+id/btn_teach_register"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/btn_paddingTopBottom"
+                    android:paddingBottom="@dimen/btn_paddingTopBottom"
+                    android:layout_marginStart="@dimen/btn_marginStartEnd"
+                    android:layout_marginTop="@dimen/sign_up_screen_btn_marginTop"
+                    android:layout_marginEnd="@dimen/btn_marginStartEnd"
                     android:text="you want to teach?-click here" />
 
             </LinearLayout>

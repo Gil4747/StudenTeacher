@@ -14,6 +14,8 @@
     <string name="intro_text_description">Students - Get Ready for Success! Find the perfect tutor to match your needs! Custom service, tutors tailored for you.</string>
 
     <string name="sign_in">SIGN IN</string>
+    <string name="phone">Phone</string>
+    <string name="confirm_password">Confirm Password</string>
 
     <string name="sign_up">SIGN UP</string>
 

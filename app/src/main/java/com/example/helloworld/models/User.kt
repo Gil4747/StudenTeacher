@@ -8,10 +8,11 @@ data class User(
     val email: String = "",
     var allProfession: ArrayList<String> = ArrayList(),
     val mobile: Long = 0,
-    val image: String = "",
-    val fcmToken: String = "",
     val area: String = "",
-    val gender: String = ""
+    val gender: String = "",
+    val image: String = "",
+    val fcmToken: String = ""
+
 
 //    val profession2: String = "",
 //    val profession3: String = ""
@@ -39,10 +40,11 @@ data class User(
         writeString(email)
         writeStringList(allProfession)
         writeLong(mobile)
-        writeString(image)
-        writeString(fcmToken)
         writeString(area)
         writeString(gender)
+        writeString(image)
+        writeString(fcmToken)
+
 
 //        writeString(profession2)
 //        writeString(profession3)
