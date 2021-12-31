@@ -46,6 +46,8 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         const val MY_PROFILE_REQUEST_CODE: Int = 11
         lateinit var currentUser: User
         lateinit var profession: String
+        lateinit var itemA: String
+        lateinit var itemZ: String
 //        private var teachers: MutableList<User> = ArrayList()
     }
     private var list: MutableList<String> = ArrayList()
@@ -68,8 +70,8 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         spn_area_hp.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val item=areaArr[position]
-                Toast.makeText(this@HomePageActivity, "$item selected", Toast.LENGTH_SHORT).show()
+                itemA=areaArr[position]
+                Toast.makeText(this@HomePageActivity, "$itemA selected", Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -79,15 +81,15 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         val zoomArr: MutableList<String> = ArrayList()
         val spn_zoom_hp = findViewById<Spinner>(R.id.spn_zoom_hp)
         zoomArr.add("zoom")
-        zoomArr.add("כן")
-        zoomArr.add("לא")
+        zoomArr.add("Yes")
+        zoomArr.add("No")
 
         val arrayAdapter2 =ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,zoomArr)
         spn_zoom_hp.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val item2=zoomArr[position]
-                Toast.makeText(this@HomePageActivity, "$item2 selected", Toast.LENGTH_SHORT).show()
+                itemZ=zoomArr[position]
+                Toast.makeText(this@HomePageActivity, "$itemZ selected", Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -326,7 +328,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
                 print(response)
                 val u=getCurrentUser(response)
                 if(u!=null) {
-                    currentUser=User(u.uid,u.name,u.email,u.allProfession,u.mobile,u.image,u.fcmToken,u.area,u.gender)
+                    currentUser=User(u.uid,u.name,u.email,u.allProfession,u.mobile,u.area,u.gender,u.image)
                     Toast.makeText(this@HomePageActivity, "${currentUser.allProfession}", Toast.LENGTH_LONG).show()
 
                 }

@@ -44,6 +44,7 @@ class MyProfileActivity : BaseActivity() {
     companion object{
         private const val READ_STORAGE_PERMISSION_CODE =1
         private const val PICK_IMAGE_REQUEST_CODE =2
+        private var list_of_id_professions: MutableList<EditText> = ArrayList()
     }
     private lateinit var viewModel: UsersViewModel
     // TODO (Add a global variable for URI of a selected image from phone storage.)
@@ -128,7 +129,10 @@ class MyProfileActivity : BaseActivity() {
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
                 et.layoutParams = p
+                et.hint="profession"
                 et.id = i * 5
+                list_of_id_professions.add(et)
+                Log.d("MyProfile: ", "${i*5}")
                 ll_my_profile.addView(et)
             }
         }
@@ -245,7 +249,7 @@ class MyProfileActivity : BaseActivity() {
             userHashMap[Constants.NAME] = et_name.text.toString()
         }
         if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
-            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
+            userHashMap[Constants.MOBILE] = et_mobile.text.toString()
         }
         if(SignUpActivity().allEd.isNotEmpty()) {
             var count = 0
@@ -300,13 +304,15 @@ class MyProfileActivity : BaseActivity() {
         if (user.mobile != 0L) {
             et_mobile.setText(user.mobile.toString())
         }
-//        if(SignUpActivity().allEd.isNotEmpty()) {
-//            var count = 0
-//            for (i in SignUpActivity().allEd) {
-//                  i.setText("ckvkck")
-//                }
-//                count++
-//            }
+        if(user.allProfession.isNotEmpty()) {
+            var count = 0
+
+            for (i in 0 until user.allProfession.size) {
+                list_of_id_professions[i].setText(user.allProfession[count])
+                count++
+                }
+
+            }
     }
     // END
 
@@ -398,7 +404,7 @@ class MyProfileActivity : BaseActivity() {
             override fun onResponse(response: Response) {
                 val u=getCurrentUser(response)
                 if(u!=null) {
-                    HomePageActivity.currentUser=User(u.uid,u.name,u.email,u.allProfession,u.mobile,u.image,u.fcmToken,u.area,u.gender)
+                    HomePageActivity.currentUser=User(u.uid,u.name,u.email,u.allProfession,u.mobile,u.area,u.gender,u.image)
                 }
 
             }

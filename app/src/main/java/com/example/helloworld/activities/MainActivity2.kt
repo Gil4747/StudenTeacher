@@ -56,14 +56,26 @@ class MainActivity2 : AppCompatActivity() {
                     if(mAuth.currentUser?.uid != currentUser?.uid){
                         Log.d("Main2---------","klsjdflkjl")
                         if(currentUser?.allProfession!!.size>0){
-                            for (i in currentUser.allProfession){
-                                Log.d("Main2---------לגךדח", "HomePageActivity.profession")
+                            if(HomePageActivity.itemZ !="No") {
+                                for (i in currentUser.allProfession) {
+                                    Log.d("Main2---------לגךדח", "HomePageActivity.profession")
 
-                                if(i == HomePageActivity.profession) {
-                                    userList.add(currentUser!!)
+                                    if (i == HomePageActivity.profession) {
+                                        userList.add(currentUser!!)
+                                    }
                                 }
                             }
+                            else{
+                                if(currentUser.area==HomePageActivity.itemA){
+                                    for (i in currentUser.allProfession) {
+                                        Log.d("Main2---------לגךדח", "HomePageActivity.profession")
 
+                                        if (i == HomePageActivity.profession) {
+                                            userList.add(currentUser!!)
+                                        }
+                                    }
+                                }
+                            }
                         }
 
                         Log.d("Main2-list", "$userList")

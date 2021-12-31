@@ -10,8 +10,8 @@ data class User(
     val mobile: Long = 0,
     val area: String = "",
     val gender: String = "",
-    val image: String = "",
-    val fcmToken: String = ""
+    val image: String = ""
+
 
 
 //    val profession2: String = "",
@@ -25,10 +25,7 @@ data class User(
         parcel.readLong(),
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readString()!!,
         parcel.readString()!!
-//        parcel.readString()!!,
-//        parcel.readString()!!
     )
 
    
@@ -43,8 +40,6 @@ data class User(
         writeString(area)
         writeString(gender)
         writeString(image)
-        writeString(fcmToken)
-
 
 //        writeString(profession2)
 //        writeString(profession3)
