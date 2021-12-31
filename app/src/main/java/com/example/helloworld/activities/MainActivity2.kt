@@ -12,6 +12,11 @@ import com.example.helloworld.R
 import com.example.helloworld.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.main_content.*
+import android.content.Intent
+
+
+
 
 class MainActivity2 : AppCompatActivity() {
     companion object {
@@ -49,8 +54,20 @@ class MainActivity2 : AppCompatActivity() {
                     Log.d("Main2", "${mAuth.currentUser?.uid}")
                     Log.d("Main2-currentId", "${currentUser?.uid}")
                     if(mAuth.currentUser?.uid != currentUser?.uid){
-                        userList.add(currentUser!!)
-//                        Log.d("Main2", "$userList")
+                        Log.d("Main2---------","klsjdflkjl")
+                        if(currentUser?.allProfession!!.size>0){
+                            for (i in currentUser.allProfession){
+                                Log.d("Main2---------לגךדח", "HomePageActivity.profession")
+
+                                if(i == HomePageActivity.profession) {
+                                    userList.add(currentUser!!)
+                                }
+                            }
+
+                        }
+
+                        Log.d("Main2-list", "$userList")
+
                     }
                 }
 
@@ -62,8 +79,8 @@ class MainActivity2 : AppCompatActivity() {
             }
 
 
-       })
-   }
+        })
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu2, menu)

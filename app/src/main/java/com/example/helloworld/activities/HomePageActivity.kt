@@ -7,8 +7,10 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.Spinner
 import androidx.core.view.GravityCompat
@@ -28,6 +30,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.main_content.*
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_sign_in_g.*
+import kotlinx.android.synthetic.main.dropdown_item.view.*
 
 
 // TODO (Implement the NavigationView.OnNavigationItemSelectedListener and add the implement members of it.)
@@ -42,10 +45,12 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         //A unique code for starting the activity for result
         const val MY_PROFILE_REQUEST_CODE: Int = 11
         lateinit var currentUser: User
+        lateinit var profession: String
 //        private var teachers: MutableList<User> = ArrayList()
     }
     private var list: MutableList<String> = ArrayList()
     private lateinit var viewModel: UsersViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //This call the parent constructor
@@ -231,8 +236,31 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
             drawer_layout.openDrawer(GravityCompat.START)
         }
     }
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//
+//        menuInflater.inflate(R.menu.menu,menu)
+//        var searchItem=menu?.findItem(R.id.menu_search)
+//        Log.d("HomePage---->: ","search.textView.text.toString()")
+//        var searchView=searchItem?.actionView as SearchView;
+//        var s=searchView.query
+//        Log.d("HomePage---->caaC: ","$s")
+//        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE)
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                Log.d("HomePage---->: ","אוקיייייוואווווו")
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                Log.d("HomePage---->: ","אוקיייייוואוחלדיוווו")
+//                return false
+//            }
+//        })
+//        return true
+//    }
     private fun print(response: Response) {
         val search = findViewById<SearchView>(R.id.searchView)
+        Log.d("HomePage---->caaCהי: ","גילדגלדי")
         val listView = findViewById<ListView>(R.id.listView)
         val adapter: ArrayAdapter<String> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
@@ -240,6 +268,11 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 search.clearFocus()
+                if (query != null) {
+                    profession=query
+                    Log.d("HomePage: ", profession)
+                }
+
                 if (list.contains(query)) {
                     adapter.filter.filter(query)
                 } else {

@@ -50,6 +50,22 @@
                 android:padding="@dimen/card_view_layout_content_padding">
 
 
+                <android.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_marginBottom="200dp"
+                    android:queryHint="Search by class name"
+                    android:background="@drawable/custom_background" />
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp" />
+
 
 
                 <Spinner
@@ -74,20 +90,7 @@
                     android:spinnerMode="dropdown"
                     app:boxBackgroundColor="@color/colorAccent" />
 
-                <SearchView
-                    android:id="@+id/searchView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_marginBottom="200dp"
-                    android:background="@drawable/custom_background" />
 
-                <ListView
-                    android:id="@+id/listView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp" />
 
                 <Button
                     android:id="@+id/btn_search"
