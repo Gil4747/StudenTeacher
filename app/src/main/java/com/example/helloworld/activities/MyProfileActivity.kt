@@ -292,6 +292,12 @@ class MyProfileActivity : BaseActivity() {
         if (et_name.text.toString() != mUserDetails.name) {
             userHashMap[Constants.NAME] = et_name.text.toString()
         }
+        if (et_area.text.toString() != mUserDetails.area) {
+            userHashMap[Constants.AREA] = et_area.text.toString()
+        }
+        if (et_gender.text.toString() != mUserDetails.gender) {
+            userHashMap[Constants.GENDER] = et_gender.text.toString()
+        }
         if(mUserDetails.mobile.toString()!=""){
         if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
             userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
