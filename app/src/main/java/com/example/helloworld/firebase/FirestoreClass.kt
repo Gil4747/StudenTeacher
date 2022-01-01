@@ -83,7 +83,7 @@ class FirestoreClass {
     fun updateUserToDatabase(activity: MyProfileActivity, userHashMap: HashMap<String, Any>) {
         mDbRef = FirebaseDatabase.getInstance().reference
         for (i in 0 until userHashMap.size) {
-            mDbRef.child("user").child(userHashMap.keys.elementAt(i)).setValue(userHashMap.getValue(userHashMap.keys.elementAt(i))).addOnSuccessListener {
+            mDbRef.child("user").child(getCurrentUserID()).child(userHashMap.keys.elementAt(i)).setValue(userHashMap.getValue(userHashMap.keys.elementAt(i))).addOnSuccessListener {
             }
         }
     }

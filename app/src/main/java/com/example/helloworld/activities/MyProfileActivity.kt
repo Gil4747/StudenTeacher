@@ -307,16 +307,16 @@ class MyProfileActivity : BaseActivity() {
         else{
             userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
         }
-        if(allEd.isNotEmpty()){
-            for(i in allEd){
-//                mUserDetails.allProfession.add(i.text.toString())
-                list_of_id_professions.add(i)
-            }
-        }
-        if(list_of_id_professions.size>0) {
+//        if(allEd.isNotEmpty()){
+//            for(i in allEd){
+////                mUserDetails.allProfession.add(i.text.toString())
+//                list_of_id_professions.add(i)
+//            }
+//        }
+        if(allEd.size>0) {
             var count = 0
             var listAddP: ArrayList<String> = ArrayList()
-            for (i in list_of_id_professions) {
+            for (i in allEd) {
                 if (count < mUserDetails.allProfession.size) {
                     if (i.text.toString() != mUserDetails.allProfession[count]) {
                         listAddP.add(i.text.toString())
@@ -328,7 +328,7 @@ class MyProfileActivity : BaseActivity() {
                 }
             }
 
-                for (i in list_of_id_professions) {
+                for (i in allEd) {
                     var count2 = 0
                     if(i.text.toString()!=mUserDetails.allProfession[count2])
                     mUserDetails.allProfession.add(i.text.toString())
