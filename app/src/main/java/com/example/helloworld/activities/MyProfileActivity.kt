@@ -37,6 +37,11 @@ import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.io.IOException
+import java.io.ObjectInput
+import java.lang.reflect.Type
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class MyProfileActivity : BaseActivity() {
@@ -44,8 +49,11 @@ class MyProfileActivity : BaseActivity() {
     companion object{
         private const val READ_STORAGE_PERMISSION_CODE =1
         private const val PICK_IMAGE_REQUEST_CODE =2
-        private var list_of_id_professions: MutableList<EditText> = ArrayList()
+
+        private lateinit var CurrentUser:User
     }
+    var list_of_id_professions: ArrayList<EditText> = ArrayList()
+    var allEd: ArrayList<EditText> = ArrayList()
     private lateinit var viewModel: UsersViewModel
     // TODO (Add a global variable for URI of a selected image from phone storage.)
     // Add a global variable for URI of a selected image from phone storage.
@@ -67,7 +75,6 @@ class MyProfileActivity : BaseActivity() {
 
         // TODO (Call a function to setup action bar.)
         setupActionBar()
-        FirestoreClass().loudUserData(this)
         viewModel = ViewModelProvider(this)
             .get(UsersViewModel::class.java)
         getResponseUsingCallback()
@@ -136,6 +143,34 @@ class MyProfileActivity : BaseActivity() {
                 ll_my_profile.addView(et)
             }
         }
+        btn_teach_my_profile.setOnClickListener {
+            val et_add_classes: String = et_add_classes.text.toString().trim { it <= ' ' }
+            val num_of_classes:Int = et_add_classes.toByte().toInt()
+
+//            setContentView(R.layout.activity_sign_up)
+            val ll_adding_professions = findViewById<View>(R.id.ll_adding_professions) as LinearLayout
+            val display: Display =
+                (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+            val width: Int = display.getWidth() / 3
+            for (i in 1..num_of_classes) {
+                val l = LinearLayout(this)
+                l.orientation = LinearLayout.HORIZONTAL
+                val et = EditText(this)
+                val p = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                et.layoutParams = p
+                et.id = (i*10)
+                allEd.add(et)
+                ll_adding_professions.addView(et)
+            }
+        }
+
+        FirestoreClass().loudUserData(this)
+
+
+
     }
     // TODO (Get the result of the image selection based on the constant code.)
     // START
@@ -237,9 +272,18 @@ class MyProfileActivity : BaseActivity() {
     /**
      * A function to update the user profile details into the database.
      */
+    class TRwpository<T>{
+        val entities = ArrayList<T>()
+        fun getFirst(): T {return entities[0]}
+        fun save (entities: T){
+
+        }
+    }
     private fun updateUserProfileData() {
 
-        val userHashMap = HashMap<String, Any>()
+        val userHashMap = HashMap<String,Any>()
+
+        val userHashMap2 = HashMap<String,ArrayList<String>>()
 
         if (mProfileImageURL.isNotEmpty() && mProfileImageURL != mUserDetails.image) {
             userHashMap[Constants.IMAGE] = mProfileImageURL
@@ -248,33 +292,48 @@ class MyProfileActivity : BaseActivity() {
         if (et_name.text.toString() != mUserDetails.name) {
             userHashMap[Constants.NAME] = et_name.text.toString()
         }
+        if(mUserDetails.mobile.toString()!=""){
         if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
-            userHashMap[Constants.MOBILE] = et_mobile.text.toString()
+            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
+        }}
+        else{
+            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
         }
-        if(SignUpActivity().allEd.isNotEmpty()) {
-            var count = 0
-            for (i in SignUpActivity().allEd) {
-                if (i.text.toString() != mUserDetails.allProfession[count]) {
-                    userHashMap["profession$count"] = i.text.toString()
-                }
-                count++
+        if(allEd.isNotEmpty()){
+            for(i in allEd){
+//                mUserDetails.allProfession.add(i.text.toString())
+                list_of_id_professions.add(i)
             }
         }
+        if(list_of_id_professions.size>0) {
+            var count = 0
+            var listAddP: ArrayList<String> = ArrayList()
+            for (i in list_of_id_professions) {
+                if (count < mUserDetails.allProfession.size) {
+                    if (i.text.toString() != mUserDetails.allProfession[count]) {
+                        listAddP.add(i.text.toString())
+                    }
+                    count++
+                } else {
+                    listAddP.add(i.text.toString())
+                    count++
+                }
+            }
 
-//        if (et_prof1.text.toString() != mUserDetails.profession1) {
-//            userHashMap[Constants.PROFESSION1] = et_prof1.text.toString()
-//        }
+                for (i in list_of_id_professions) {
+                    var count2 = 0
+                    if(i.text.toString()!=mUserDetails.allProfession[count2])
+                    mUserDetails.allProfession.add(i.text.toString())
+                    count2++
+                }
+            userHashMap2[Constants.ALLPROFESSION]= mUserDetails.allProfession
 
-//        if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
-//            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
-//        }
-
-//        if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
-//            userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
-//        }
+        }
 
         // Update the data in the database.
         FirestoreClass().updateUserProfileData(this@MyProfileActivity, userHashMap)
+        FirestoreClass().updateUserProfileData2(this@MyProfileActivity, userHashMap2)
+//        setUserDataInUI(mUserDetails)
     }
     // END
 
@@ -307,12 +366,13 @@ class MyProfileActivity : BaseActivity() {
         if(user.allProfession.isNotEmpty()) {
             var count = 0
 
-            for (i in 0 until user.allProfession.size) {
+            for (i in 0 until list_of_id_professions.size) {
                 list_of_id_professions[i].setText(user.allProfession[count])
                 count++
                 }
 
             }
+        CurrentUser= User(user.uid,user.name,user.email,user.allProfession,user.mobile,user.area,user.gender,user.image)
     }
     // END
 
@@ -397,6 +457,7 @@ class MyProfileActivity : BaseActivity() {
         hideProgressDialog()
         setResult(Activity.RESULT_OK)
         finish()
+
     }
     // END
     private fun getResponseUsingCallback() {

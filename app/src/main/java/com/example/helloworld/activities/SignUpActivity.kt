@@ -127,7 +127,6 @@ class SignUpActivity : BaseActivity() {
             val num_of_classes:Int = et_how_many_classes.toByte().toInt()
 
 //            setContentView(R.layout.activity_sign_up)
-//            val allEds: MutableList<EditText> = ArrayList()
             val ll = findViewById<View>(R.id.ll) as LinearLayout
             val display: Display =
                 (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
@@ -228,21 +227,23 @@ class SignUpActivity : BaseActivity() {
 
                             // Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
-                            addUserToDatabase(name,email, firebaseUser.uid)
+                            val emptyProfession: ArrayList<String> = ArrayList()
+                            addUserToDatabase(name,email, firebaseUser.uid,emptyProfession,0,itemA,itemG)
 
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
+
                             if(allEd.isNotEmpty()){
                                 var allProfessions: ArrayList<String> = ArrayList()
                                 for (i in allEd){
                                     allProfessions.add( i.text.toString().trim { it <= ' ' })
                                 }
                                 val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,0,itemA,itemG)
-                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions)
+                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,0,itemA,itemG)
                                 FirestoreClass().registerUser(this, user)
                             }
                             else {
-                                val user = User(firebaseUser.uid, name, registeredEmail)
+                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,0,itemA,itemG)
                                 FirestoreClass().registerUser(this, user)
                             }
 
@@ -258,9 +259,9 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
-    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>) {
+    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>,phone: Long, area: String, gender: String) {
         mDbRef = FirebaseDatabase.getInstance().reference
-        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions))
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender))
     }
     private fun addUserToDatabase(name: String, email: String, uid: String) {
         mDbRef = FirebaseDatabase.getInstance().reference

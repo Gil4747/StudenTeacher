@@ -179,8 +179,37 @@
 
                 </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/ll_adding_professions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+                <EditText
+                    android:id="@+id/et_add_classes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
+                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"
+                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd"
+                    android:hint="How many classes you want to teach?">
+
+                    <requestFocus />
+                </EditText>
 
 
+                <Button
+                    android:id="@+id/btn_teach_my_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/btn_paddingTopBottom"
+                    android:paddingBottom="@dimen/btn_paddingTopBottom"
+                    android:layout_marginStart="@dimen/btn_marginStartEnd"
+                    android:layout_marginTop="@dimen/sign_up_screen_btn_marginTop"
+                    android:layout_marginEnd="@dimen/btn_marginStartEnd"
+                    android:text="you want to teach?-click here" />
+
+            </LinearLayout>
 
 
 

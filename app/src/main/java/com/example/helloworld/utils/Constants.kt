@@ -13,8 +13,6 @@ object Constants {
     const val IMAGE: String = "image"
     const val NAME: String = "name"
     const val MOBILE: String = "mobile"
-    const val PROFESSION1: String = "profession1"
-    const val PROFESSION2: String = "profession2"
-    const val PROFESSION3: String = "profession3"
+    const val ALLPROFESSION: String = "allProfession"
     // END
 }

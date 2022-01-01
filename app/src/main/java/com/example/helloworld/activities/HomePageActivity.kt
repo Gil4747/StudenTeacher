@@ -238,31 +238,8 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
             drawer_layout.openDrawer(GravityCompat.START)
         }
     }
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//
-//        menuInflater.inflate(R.menu.menu,menu)
-//        var searchItem=menu?.findItem(R.id.menu_search)
-//        Log.d("HomePage---->: ","search.textView.text.toString()")
-//        var searchView=searchItem?.actionView as SearchView;
-//        var s=searchView.query
-//        Log.d("HomePage---->caaC: ","$s")
-//        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE)
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                Log.d("HomePage---->: ","אוקיייייוואווווו")
-//                return false
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                Log.d("HomePage---->: ","אוקיייייוואוחלדיוווו")
-//                return false
-//            }
-//        })
-//        return true
-//    }
     private fun print(response: Response) {
         val search = findViewById<SearchView>(R.id.searchView)
-        Log.d("HomePage---->caaCהי: ","גילדגלדי")
         val listView = findViewById<ListView>(R.id.listView)
         val adapter: ArrayAdapter<String> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
@@ -295,10 +272,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         response.users?.let { users ->
             users.forEach { user ->
                 user.allProfession.let {
-//                    if(user.allProfession.size>0)
-//                        teachers.add(user)
                     for (j in user.allProfession) {
-                        var count = 0
                         Log.i(TAG, j)
                         if (list.contains(j)) {
                         } else {
@@ -329,7 +303,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
                 val u=getCurrentUser(response)
                 if(u!=null) {
                     currentUser=User(u.uid,u.name,u.email,u.allProfession,u.mobile,u.area,u.gender,u.image)
-                    Toast.makeText(this@HomePageActivity, "${currentUser.allProfession}", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this@HomePageActivity, "${currentUser.allProfession}", Toast.LENGTH_LONG).show()
 
                 }
 
