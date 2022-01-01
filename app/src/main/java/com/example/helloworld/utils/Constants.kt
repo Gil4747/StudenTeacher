@@ -12,6 +12,8 @@ object Constants {
     // Firebase database field names
     const val IMAGE: String = "image"
     const val NAME: String = "name"
+    const val UID: String = "uid"
+    const val EMAIL: String = "email"
     const val AREA: String = "area"
     const val GENDER: String = "gender"
     const val MOBILE: String = "mobile"

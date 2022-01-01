@@ -1,6 +1,8 @@
 package com.example.helloworld.activities
 
 import android.Manifest
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
@@ -272,18 +274,15 @@ class MyProfileActivity : BaseActivity() {
     /**
      * A function to update the user profile details into the database.
      */
-    class TRwpository<T>{
-        val entities = ArrayList<T>()
-        fun getFirst(): T {return entities[0]}
-        fun save (entities: T){
 
-        }
-    }
     private fun updateUserProfileData() {
-
         val userHashMap = HashMap<String,Any>()
 
+
         val userHashMap2 = HashMap<String,ArrayList<String>>()
+
+
+
 
         if (mProfileImageURL.isNotEmpty() && mProfileImageURL != mUserDetails.image) {
             userHashMap[Constants.IMAGE] = mProfileImageURL
@@ -291,12 +290,15 @@ class MyProfileActivity : BaseActivity() {
 
         if (et_name.text.toString() != mUserDetails.name) {
             userHashMap[Constants.NAME] = et_name.text.toString()
+
         }
         if (et_area.text.toString() != mUserDetails.area) {
             userHashMap[Constants.AREA] = et_area.text.toString()
+
         }
         if (et_gender.text.toString() != mUserDetails.gender) {
             userHashMap[Constants.GENDER] = et_gender.text.toString()
+
         }
         if(mUserDetails.mobile.toString()!=""){
         if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
@@ -333,13 +335,16 @@ class MyProfileActivity : BaseActivity() {
                     count2++
                 }
             userHashMap2[Constants.ALLPROFESSION]= mUserDetails.allProfession
-
         }
 
         // Update the data in the database.
+
         FirestoreClass().updateUserProfileData(this@MyProfileActivity, userHashMap)
         FirestoreClass().updateUserProfileData2(this@MyProfileActivity, userHashMap2)
 //        setUserDataInUI(mUserDetails)
+        FirestoreClass().updateUserToDatabase(this@MyProfileActivity, userHashMap)
+        FirestoreClass().updateUserClassesToDatabase(this@MyProfileActivity, userHashMap2)
+
     }
     // END
 

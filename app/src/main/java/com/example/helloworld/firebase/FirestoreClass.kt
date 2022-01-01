@@ -12,8 +12,7 @@ import com.example.helloworld.activities.SignInActivityG
 import com.example.helloworld.activities.SignUpActivity
 import com.example.helloworld.models.User
 import com.example.helloworld.utils.Constants
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 /**
  * A custom class where we will add the operation performed for the firestore database.
@@ -23,6 +22,7 @@ class FirestoreClass {
     // Create a instance of Firebase Firestore
     private val mFireStore = FirebaseFirestore.getInstance()
     private lateinit var mDbRef: DatabaseReference
+
 //    lateinit var currentUser:User
     /**
      * A function to make an entry of the registered user in the firestore database.
@@ -80,12 +80,27 @@ class FirestoreClass {
         mDbRef = FirebaseDatabase.getInstance().reference
         mDbRef.child("user").child(uid).setValue(User(uid,name,email))
     }
+    fun updateUserToDatabase(activity: MyProfileActivity, userHashMap: HashMap<String, Any>) {
+        mDbRef = FirebaseDatabase.getInstance().reference
+        for (i in 0 until userHashMap.size) {
+            mDbRef.child("user").child(userHashMap.keys.elementAt(i)).setValue(userHashMap.getValue(userHashMap.keys.elementAt(i))).addOnSuccessListener {
+            }
+        }
+    }
+    fun updateUserClassesToDatabase(activity: MyProfileActivity, userHashMap: HashMap<String, ArrayList<String>>) {
+        mDbRef = FirebaseDatabase.getInstance().reference
+        for (i in 0 until userHashMap.size) {
+            mDbRef.child("user").child(getCurrentUserID()).child("allProfession").setValue(userHashMap.getValue("allProfession")).addOnSuccessListener {
+            }
+        }
+    }
     // TODO (Create a function to update the user profile data into the database.)
     // START
     /**
      * A function to update the user profile data into the database.
      */
     fun updateUserProfileData(activity: MyProfileActivity, userHashMap: HashMap<String, Any>) {
+//        updateUserToDatabase(activity,userHashMap)
         mFireStore.collection(Constants.USERS) // Collection Name
             .document(getCurrentUserID()) // Document ID
             .update(userHashMap) // A hashmap of fields which are to be updated.
