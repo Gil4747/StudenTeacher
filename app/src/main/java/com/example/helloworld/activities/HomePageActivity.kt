@@ -45,11 +45,12 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         //A unique code for starting the activity for result
         const val MY_PROFILE_REQUEST_CODE: Int = 11
         lateinit var currentUser: User
-        lateinit var profession: String
         lateinit var itemA: String
         lateinit var itemZ: String
+        lateinit var profession: String
 //        private var teachers: MutableList<User> = ArrayList()
     }
+
     private var list: MutableList<String> = ArrayList()
     private lateinit var viewModel: UsersViewModel
 

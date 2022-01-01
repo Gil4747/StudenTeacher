@@ -22,6 +22,8 @@ class UserAdapter(val context: MainActivity2, val userList: ArrayList<User>):
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val currentUser = userList[position]
         holder.textName.text = currentUser.name
+        holder.textEmail.text = currentUser.email
+        holder.textMobile.text = currentUser.mobile.toString()
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra("name", currentUser.name)
@@ -34,6 +36,8 @@ class UserAdapter(val context: MainActivity2, val userList: ArrayList<User>):
         return userList.size
     }
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val textName= itemView.findViewById<TextView>(R.id.txt_name)
+        val textName= itemView.findViewById<TextView>(R.id.tvName)
+        val textEmail= itemView.findViewById<TextView>(R.id.tvEmail)
+        val textMobile= itemView.findViewById<TextView>(R.id.tvMobile)
     }
 }

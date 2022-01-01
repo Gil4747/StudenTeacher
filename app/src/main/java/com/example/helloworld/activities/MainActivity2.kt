@@ -31,7 +31,7 @@ class MainActivity2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_main_2_1)
 
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseDatabase.getInstance().reference
@@ -40,7 +40,7 @@ class MainActivity2 : AppCompatActivity() {
         adapter = UserAdapter(this,userList)
 
 
-        userRecyclerView = findViewById(R.id.UserRecyclerView)
+        userRecyclerView = findViewById(R.id.recyclerView)
 
         userRecyclerView.layoutManager = LinearLayoutManager(this)
         userRecyclerView.adapter = adapter
