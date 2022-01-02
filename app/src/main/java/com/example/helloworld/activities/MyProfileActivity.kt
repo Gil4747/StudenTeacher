@@ -126,7 +126,7 @@ class MyProfileActivity : BaseActivity() {
         getResponseUsingCallback()
         // END
 
-        FirebaseFirestore.getInstance().collection(Constants.USERS).document(getCurrentUserID()).get().addOnSuccessListener { document ->
+        FirebaseFirestore.getInstance().collection(Constants.USERS).document(FirestoreClass().getCurrentUserID()).get().addOnSuccessListener { document ->
             if (document.exists()) {
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val loggedInUser =
