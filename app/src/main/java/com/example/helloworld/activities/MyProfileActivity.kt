@@ -382,13 +382,14 @@ class MyProfileActivity : BaseActivity() {
 
         }
 
-        if(mUserDetails.mobile.toString()!=""){
+        if(mUserDetails.mobile!=0L){
         if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
             userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
         }}
         else{
+            if(et_mobile.text?.isNotEmpty() == true){
             userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
-        }
+        }}
 //        if(allEd.isNotEmpty()){
 //            for(i in allEd){
 ////                mUserDetails.allProfession.add(i.text.toString())
