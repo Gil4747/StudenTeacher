@@ -7,12 +7,12 @@ data class User(
     val name: String = "",
     val email: String = "",
     var allProfession: ArrayList<String> = ArrayList(),
-    val mobile: Long = 0,
-    val area: String = "",
+    var mobile: Long = 0,
+    var area: String = "",
     val gender: String = "",
-    val image: String = "",
-    val age: Int = 0,
-    val price: Int = 0
+    var image: String = "",
+    var age: Int = 0,
+    var price: Int = 0
 
 
 

@@ -15,6 +15,7 @@ object Constants {
     const val UID: String = "uid"
     const val EMAIL: String = "email"
     const val AREA: String = "area"
+    const val PRICE: String = "price"
     const val GENDER: String = "gender"
     const val MOBILE: String = "mobile"
     const val ALLPROFESSION: String = "allProfession"

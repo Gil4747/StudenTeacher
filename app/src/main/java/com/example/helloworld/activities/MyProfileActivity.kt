@@ -52,7 +52,7 @@ class MyProfileActivity : BaseActivity() {
         private const val PICK_IMAGE_REQUEST_CODE =2
         lateinit var priceET: TextView
         lateinit var priceTV: TextView
-        lateinit var AddPriceET: TextView
+        lateinit var AddPriceET: EditText
         lateinit var AddPpriceTV: TextView
         private lateinit var CurrentUser:User
     }
@@ -421,6 +421,8 @@ class MyProfileActivity : BaseActivity() {
                     if (!mUserDetails.allProfession.contains(i.text.toString()))
                         mUserDetails.allProfession.add(i.text.toString())
                 }
+                mUserDetails.price= AddPriceET.text.toString().toInt()
+                userHashMap[Constants.PRICE]= mUserDetails.price
             }
             userHashMap2[Constants.ALLPROFESSION]= mUserDetails.allProfession
         }
