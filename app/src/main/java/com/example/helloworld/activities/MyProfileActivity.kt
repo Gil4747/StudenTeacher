@@ -58,7 +58,10 @@ class MyProfileActivity : BaseActivity() {
     }
     var list_of_id_professions: ArrayList<EditText> = ArrayList()
     var list_of_id_professionsTV: ArrayList<TextView> = ArrayList()
+    var list_of_id_price: ArrayList<EditText> = ArrayList()
+    var list_of_id_priceTV: ArrayList<TextView> = ArrayList()
     var allEd: ArrayList<EditText> = ArrayList()
+    var allEdPrice: ArrayList<EditText> = ArrayList()
     private lateinit var viewModel: UsersViewModel
     // TODO (Add a global variable for URI of a selected image from phone storage.)
     // Add a global variable for URI of a selected image from phone storage.
@@ -132,8 +135,6 @@ class MyProfileActivity : BaseActivity() {
                 val loggedInUser =
                     document.toObject(User::class.java)!!
                 if(loggedInUser.allProfession.isNotEmpty()) {
-//            setContentView(R.layout.activity_sign_up)
-//            val allEds: MutableList<EditText> = ArrayList()
                     val ll_my_profile = findViewById<View>(R.id.ll_my_profile) as LinearLayout
 
                     val display: Display =
@@ -144,6 +145,8 @@ class MyProfileActivity : BaseActivity() {
                         l.orientation = LinearLayout.HORIZONTAL
                         val tv=TextView(this)
                         val et = EditText(this)///לשנות את זה לTextView
+                        val tvP=TextView(this)
+                        val etP = EditText(this)///לשנות את זה לTextView
                         val p = LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -153,45 +156,58 @@ class MyProfileActivity : BaseActivity() {
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT
                         )
+                        tvP.layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
 
                         et.layoutParams = p
-                        et.hint="profession"
-                        tv.hint="profession"
+                        etP.layoutParams = p
+                        et.hint="Profession"
+                        tv.hint="Profession"
+                        etP.hint="Price"
+                        tvP.hint="Price"
                         et.id = i * 5
                         tv.id = (-i) * 5
                         list_of_id_professionsTV.add(tv)
                         list_of_id_professions.add(et)
+                        list_of_id_priceTV.add(tvP)
+                        list_of_id_price.add(etP)
                         Log.d("MyProfile: ", "${i*5}")
                         ll_my_profile.addView(tv)
                         ll_my_profile.addView(et)
+                        ll_my_profile.addView(tvP)
+                        ll_my_profile.addView(etP)
                         val lpt = tv.layoutParams as MarginLayoutParams
                         lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
+                        val lpt2 = tvP.layoutParams as MarginLayoutParams
+                        lpt.setMargins(20, lpt2.topMargin, lpt2.rightMargin, lpt2.bottomMargin)
 
                     }
-                    val l = LinearLayout(this)
-                    l.orientation = LinearLayout.HORIZONTAL
-                    val et = EditText(this)
-                    val tvP=TextView(this)
-                    val p = LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                    tvP.layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                    et.layoutParams = p
-                    et.hint="Price"
-                    tvP.hint="Price"
-                    et.id = -1
-                    tvP.id = -2
-                    priceET=et
-                    priceTV=tvP
-                    ll_my_profile.addView(tvP)
-                    ll_my_profile.addView(et)
-
-                    val lpt = tvP.layoutParams as MarginLayoutParams
-                    lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
+//                    val l = LinearLayout(this)
+//                    l.orientation = LinearLayout.HORIZONTAL
+//                    val et = EditText(this)
+//                    val tvP=TextView(this)
+//                    val p = LinearLayout.LayoutParams(
+//                        ViewGroup.LayoutParams.MATCH_PARENT,
+//                        ViewGroup.LayoutParams.WRAP_CONTENT
+//                    )
+//                    tvP.layoutParams = ViewGroup.LayoutParams(
+//                        ViewGroup.LayoutParams.MATCH_PARENT,
+//                        ViewGroup.LayoutParams.WRAP_CONTENT
+//                    )
+//                    et.layoutParams = p
+//                    et.hint="Price"
+//                    tvP.hint="Price"
+//                    et.id = -1
+//                    tvP.id = -2
+//                    priceET=et
+//                    priceTV=tvP
+//                    ll_my_profile.addView(tvP)
+//                    ll_my_profile.addView(et)
+//
+//                    val lpt = tvP.layoutParams as MarginLayoutParams
+//                    lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
                 }
             }
             else {
@@ -214,40 +230,46 @@ class MyProfileActivity : BaseActivity() {
                 val l = LinearLayout(this)
                 l.orientation = LinearLayout.HORIZONTAL
                 val et = EditText(this)
+                val etP = EditText(this)
                 val p = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
                 et.layoutParams = p
+                etP.layoutParams = p
                 et.id = (i*10)
+                etP.id = ((-i)*10)
                 et.hint="Profession$i"
+                etP.hint="Price"
                 allEd.add(et)
+                allEdPrice.add(etP)
                 ll_adding_professions.addView(et)
+                ll_adding_professions.addView(etP)
             }///להוסיף מחיר רק אם הוא לא היה מורה לפני כן
-            if(list_of_id_professions.isEmpty() || list_of_id_professions.size==0){
-                val l = LinearLayout(this)
-                l.orientation = LinearLayout.HORIZONTAL
-                val et = EditText(this)
-                val tvP=TextView(this)
-                val p = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                tvP.layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                et.layoutParams = p
-                et.hint="Price"
-//                tvP.hint="Price"
-                et.id = -1000
-                tvP.id = -2000
-                AddPriceET=et
-                AddPpriceTV=tvP
-                ll_adding_professions.addView(tvP)
-                ll_adding_professions.addView(et)
-
-            }
+//            if(list_of_id_professions.isEmpty() || list_of_id_professions.size==0){
+//                val l = LinearLayout(this)
+//                l.orientation = LinearLayout.HORIZONTAL
+//                val et = EditText(this)
+//                val tvP=TextView(this)
+//                val p = LinearLayout.LayoutParams(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT
+//                )
+//                tvP.layoutParams = ViewGroup.LayoutParams(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT
+//                )
+//                et.layoutParams = p
+//                et.hint="Price"
+////                tvP.hint="Price"
+//                et.id = -1000
+//                tvP.id = -2000
+//                AddPriceET=et
+//                AddPpriceTV=tvP
+//                ll_adding_professions.addView(tvP)
+//                ll_adding_professions.addView(et)
+//
+//            }
         }
 
         FirestoreClass().loudUserData(this)
@@ -361,6 +383,7 @@ class MyProfileActivity : BaseActivity() {
 
 
         val userHashMap2 = HashMap<String,ArrayList<String>>()
+        val userHashMapPrice = HashMap<String,HashMap<String,Int>>()
 
 
 
@@ -410,29 +433,44 @@ class MyProfileActivity : BaseActivity() {
                     count++
                 }
             }
-            if(mUserDetails.allProfession.isNotEmpty()) {
+//            if(mUserDetails.allProfession.isNotEmpty()) {
+//                for (i in allEd) {
+//                        if (!mUserDetails.allProfession.contains(i.text.toString())){
+//                            mUserDetails.allProfession.add(i.text.toString())
+//                    mUserDetails.price.put(i.text.toString(),allEdPrice[count].text.toString().toInt())
+//
+//                }
+//               }
+//            else{
+                var count2=0
                 for (i in allEd) {
-                        if (!mUserDetails.allProfession.contains(i.text.toString()))
+                    if(mUserDetails.allProfession.isNotEmpty()) {
+                        if (!mUserDetails.allProfession.contains(i.text.toString())) {
                             mUserDetails.allProfession.add(i.text.toString())
+                            mUserDetails.price.put(i.text.toString(),allEdPrice[count2].text.toString().toInt())
+                        }
                     }
-                }
-            else{
-                for (i in allEd) {
-                    if (!mUserDetails.allProfession.contains(i.text.toString()))
+                    else{
                         mUserDetails.allProfession.add(i.text.toString())
+                        mUserDetails.price.put(i.text.toString(),allEdPrice[count2].text.toString().toInt())
+                    }
+                    count2++
+
                 }
-                mUserDetails.price= AddPriceET.text.toString().toInt()
-                userHashMap[Constants.PRICE]= mUserDetails.price
-            }
+
+                userHashMapPrice[Constants.PRICE]= mUserDetails.price
+//            }
             userHashMap2[Constants.ALLPROFESSION]= mUserDetails.allProfession
         }
 
         // Update the data in the database.
 
         FirestoreClass().updateUserProfileData(this@MyProfileActivity, userHashMap)
+        FirestoreClass().updateUserPriceData(this@MyProfileActivity, userHashMapPrice)
         FirestoreClass().updateUserProfileData2(this@MyProfileActivity, userHashMap2)
 //        setUserDataInUI(mUserDetails)
         FirestoreClass().updateUserToDatabase(this@MyProfileActivity, userHashMap)
+        FirestoreClass().updateUserPriceToDatabase(this@MyProfileActivity, userHashMapPrice)
         FirestoreClass().updateUserClassesToDatabase(this@MyProfileActivity, userHashMap2)
 
     }
@@ -467,8 +505,9 @@ class MyProfileActivity : BaseActivity() {
         }
         if(user.allProfession.isNotEmpty()) {
             var count = 0
+            var count2 = 0
 //            priceTV.hint="Price"
-            priceET.text = user.price.toString()
+//            priceET.text = user.price.toString()
 
             for (i in 0 until list_of_id_professions.size) {
                 if(list_of_id_professionsTV.isNotEmpty() && i<list_of_id_professionsTV.size) {
@@ -477,6 +516,13 @@ class MyProfileActivity : BaseActivity() {
                 list_of_id_professions[i].setText(user.allProfession[count])
                 count++
                 }
+            for (i in 0 until list_of_id_price.size) {
+                if(list_of_id_priceTV.isNotEmpty() && i<list_of_id_priceTV.size) {
+                    list_of_id_priceTV[i].hint = "Price"
+                }
+                list_of_id_price[i].setText("${user.price.get(list_of_id_professions[i].text.toString())}")
+                count2++
+            }
 
             }
         CurrentUser= User(user.uid,user.name,user.email,user.allProfession,user.mobile,user.area,user.gender,user.image,user.age,user.price)

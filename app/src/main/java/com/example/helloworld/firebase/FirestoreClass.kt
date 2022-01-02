@@ -72,7 +72,7 @@ class FirestoreClass {
                 }
         }
     }
-    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>, phone:Long, area: String, gender: String,age:Int, price:Int) {
+    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>, phone:Long, area: String, gender: String,age:Int, price:HashMap<String,Int>) {
         mDbRef = FirebaseDatabase.getInstance().reference
         mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,"",age,price))
     }
@@ -91,6 +91,13 @@ class FirestoreClass {
         mDbRef = FirebaseDatabase.getInstance().reference
         for (i in 0 until userHashMap.size) {
             mDbRef.child("user").child(getCurrentUserID()).child("allProfession").setValue(userHashMap.getValue("allProfession")).addOnSuccessListener {
+            }
+        }
+    }
+    fun updateUserPriceToDatabase(activity: MyProfileActivity, userHashMap: HashMap<String, HashMap<String, Int>>) {
+        mDbRef = FirebaseDatabase.getInstance().reference
+        for (i in 0 until userHashMap.size) {
+            mDbRef.child("user").child(getCurrentUserID()).child("price").setValue(userHashMap.getValue("price")).addOnSuccessListener {
             }
         }
     }
@@ -145,6 +152,29 @@ class FirestoreClass {
             }
 
     }
+    fun updateUserPriceData(activity: MyProfileActivity, userHashMap: HashMap<String, HashMap<String,Int>>) {
+        mFireStore.collection(Constants.USERS) // Collection Name
+            .document(getCurrentUserID()) // Document ID
+            .update(userHashMap as Map<String, Any>) // A hashmap of fields which are to be updated.
+            .addOnSuccessListener {
+                // Profile data is updated successfully.
+                Log.e(activity.javaClass.simpleName, "Profile Data updated successfully!")
+
+                Toast.makeText(activity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+
+                // Notify the success result.
+                activity.profileUpdateSuccess()
+            }.addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while creating a board.", e)
+                Toast.makeText(activity, "Error when updating the profile!", Toast.LENGTH_SHORT).show()
+
+            }
+
+    }
+
 
 
     // TODO (We can use the same function to get the current logged in user details. As we need to modify only few things here.)

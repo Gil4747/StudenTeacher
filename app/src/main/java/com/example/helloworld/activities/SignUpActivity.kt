@@ -33,8 +33,9 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 
 class SignUpActivity : BaseActivity() {
     var allEd: MutableList<EditText> = ArrayList()
+    var allEdPrice: MutableList<EditText> = ArrayList()
     companion object {
-        lateinit var priceET: EditText
+//        var priceET:  HashMap<String, Int> = HashMap()
         lateinit var itemA: String
         lateinit var itemG: String
     }
@@ -136,27 +137,19 @@ class SignUpActivity : BaseActivity() {
                 val l = LinearLayout(this)
                 l.orientation = LinearLayout.HORIZONTAL
                 val et = EditText(this)
+                val etP = EditText(this)
                 val p = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
                 et.layoutParams = p
+                etP.layoutParams = p
                 et.id = i
                 allEd.add(et)
+                allEdPrice.add(etP)
                 ll.addView(et)
+                ll.addView(etP)
             }
-
-            val et = EditText(this)
-            et.inputType=TYPE_CLASS_NUMBER
-            val p = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            et.layoutParams = p
-            et.id = 0
-            et.hint="Price:"
-            priceET=et
-            ll.addView(et)
 
         }
 //        val btn_i_want_teach = findViewById<Button>(R.id.btn_i_want_teach)
@@ -249,15 +242,22 @@ class SignUpActivity : BaseActivity() {
 
                             if(allEd.isNotEmpty()){
                                 var allProfessions: ArrayList<String> = ArrayList()
+                                var allPrice:HashMap<String,Int> =HashMap()
+                                var count=0
                                 for (i in allEd){
                                     allProfessions.add( i.text.toString().trim { it <= ' ' })
                                 }
-                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,0,itemA,itemG, age = et_age, price = priceET.text.toString().trim().toInt() )
-                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,0,itemA,itemG,et_age, priceET.text.toString().trim().toInt() )
+                                var count2=0
+                                for(j in allEdPrice){
+                                    allPrice.put(allProfessions[count2],j.text.toString().toInt())
+                                    count++
+                                }
+                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,0,itemA,itemG, age = et_age, price = allPrice )
+                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,0,itemA,itemG,et_age, allPrice)
                                 FirestoreClass().registerUser(this, user)
                             }
                             else {
-                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,0,itemA,itemG,age = et_age, price =0)
+                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,0,itemA,itemG,age = et_age)
                                 FirestoreClass().registerUser(this, user)
                             }
 
@@ -273,7 +273,7 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
-    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>,phone: Long, area: String, gender: String,age:Int, price:Int) {
+    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>,phone: Long, area: String, gender: String,age:Int, price:HashMap<String, Int>) {
         mDbRef = FirebaseDatabase.getInstance().reference
         mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,age = age, price = price))
     }
