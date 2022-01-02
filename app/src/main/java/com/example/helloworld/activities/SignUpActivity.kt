@@ -214,7 +214,7 @@ class SignUpActivity : BaseActivity() {
         val name: String = et_name_signUp.text.toString().trim { it <= ' ' }
         val email: String = et_email_signUp.text.toString().trim { it <= ' ' }
         val password: String = et_password_signUp.text.toString().trim { it <= ' ' }
-        val phon: String = et_mobile_signUp.text.toString().trim { it <= ' ' }
+        val phon: Long = et_mobile_signUp.text.toString().trim().toLong()
         val et_age: Int = et_age_sing_up.text.toString().trim().toInt()
 //        val gender: String = spn_gender.text.toString().trim { it <= ' ' }
         val et_how_many_classes: String = et_how_many_classes.text.toString().trim { it <= ' ' }
@@ -223,7 +223,7 @@ class SignUpActivity : BaseActivity() {
 //        val prof3: String = et_prof3.text.toString().trim { it <= ' ' }
         val Cpassword: String = et_confirm_password_signUp.text.toString().trim { it <= ' ' }
 
-        if (validateForm(name, email, password, Cpassword,phon)) {
+        if (validateForm(name, email, password, Cpassword)) {
             showProgressDialog(resources.getString(R.string.please_wait))
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
@@ -235,7 +235,7 @@ class SignUpActivity : BaseActivity() {
                             // Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
                             val emptyProfession: ArrayList<String> = ArrayList()
-                            addUserToDatabase2(name,email, firebaseUser.uid,emptyProfession,0,itemA,itemG,et_age)
+                            addUserToDatabase2(name,email, firebaseUser.uid,emptyProfession,phon,itemA,itemG,et_age)
 
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
@@ -252,12 +252,12 @@ class SignUpActivity : BaseActivity() {
                                     allPrice.put(allProfessions[count2],j.text.toString().toInt())
                                     count++
                                 }
-                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,0,itemA,itemG, age = et_age, price = allPrice )
-                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,0,itemA,itemG,et_age, allPrice)
+                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,phon,itemA,itemG, age = et_age, price = allPrice )
+                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,phon,itemA,itemG,et_age, allPrice)
                                 FirestoreClass().registerUser(this, user)
                             }
                             else {
-                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,0,itemA,itemG,age = et_age)
+                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,phon,itemA,itemG,age = et_age)
                                 FirestoreClass().registerUser(this, user)
                             }
 
@@ -290,7 +290,7 @@ class SignUpActivity : BaseActivity() {
     /**
      * A function to validate the entries of a new user.
      */
-    private fun validateForm(name: String, email: String, password: String, cPsswoed: String, phon:String): Boolean {
+    private fun validateForm(name: String, email: String, password: String, cPsswoed: String): Boolean {
         return when {
             TextUtils.isEmpty(name) -> {
                 showErrorSnackBar("Please enter name.")
@@ -305,11 +305,7 @@ class SignUpActivity : BaseActivity() {
                 false
             }
             TextUtils.isEmpty(cPsswoed) -> {
-                showErrorSnackBar("תאמת את הסיסמא שלך בבקשה")
-                false
-            }
-            TextUtils.isEmpty(phon) -> {
-                showErrorSnackBar("תכניס את המספר טלפון בבקשה")
+                showErrorSnackBar("Please confirm your password.")
                 false
             }
 
