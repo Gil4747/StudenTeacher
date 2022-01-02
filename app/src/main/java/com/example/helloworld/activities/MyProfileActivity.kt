@@ -40,6 +40,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import android.view.ViewGroup.MarginLayoutParams
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.dropdown_item.view.*
 
 
@@ -50,6 +52,8 @@ class MyProfileActivity : BaseActivity() {
         private const val PICK_IMAGE_REQUEST_CODE =2
         lateinit var priceET: TextView
         lateinit var priceTV: TextView
+        lateinit var AddPriceET: TextView
+        lateinit var AddPpriceTV: TextView
         private lateinit var CurrentUser:User
     }
     var list_of_id_professions: ArrayList<EditText> = ArrayList()
@@ -121,69 +125,82 @@ class MyProfileActivity : BaseActivity() {
         }
         getResponseUsingCallback()
         // END
-//        Toast.makeText(this,SignUpActivity().allEd.size,Toast.LENGTH_LONG)
-        if(HomePageActivity.currentUser.allProfession.isNotEmpty()) {
+
+        FirebaseFirestore.getInstance().collection(Constants.USERS).document(getCurrentUserID()).get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                // Here we have received the document snapshot which is converted into the User Data model object.
+                val loggedInUser =
+                    document.toObject(User::class.java)!!
+                if(loggedInUser.allProfession.isNotEmpty()) {
 //            setContentView(R.layout.activity_sign_up)
 //            val allEds: MutableList<EditText> = ArrayList()
-            val ll_my_profile = findViewById<View>(R.id.ll_my_profile) as LinearLayout
+                    val ll_my_profile = findViewById<View>(R.id.ll_my_profile) as LinearLayout
 
-            val display: Display =
-                (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-            val width: Int = display.getWidth() / 3
-            for (i in 1..HomePageActivity.currentUser.allProfession.size) {
-                val l = LinearLayout(this)
-                l.orientation = LinearLayout.HORIZONTAL
-                val tv=TextView(this)
-                val et = EditText(this)///לשנות את זה לTextView
-                val p = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
+                    val display: Display =
+                        (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+                    val width: Int = display.getWidth() / 3
+                    for (i in 1..HomePageActivity.currentUser.allProfession.size) {
+                        val l = LinearLayout(this)
+                        l.orientation = LinearLayout.HORIZONTAL
+                        val tv=TextView(this)
+                        val et = EditText(this)///לשנות את זה לTextView
+                        val p = LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
 
-                tv.layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
+                        tv.layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
 
-                et.layoutParams = p
-                et.hint="profession"
-                tv.hint="profession"
-                et.id = i * 5
-                tv.id = (-i) * 5
-                list_of_id_professionsTV.add(tv)
-                list_of_id_professions.add(et)
-                Log.d("MyProfile: ", "${i*5}")
-                ll_my_profile.addView(tv)
-                ll_my_profile.addView(et)
-                val lpt = tv.layoutParams as MarginLayoutParams
-                lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
+                        et.layoutParams = p
+                        et.hint="profession"
+                        tv.hint="profession"
+                        et.id = i * 5
+                        tv.id = (-i) * 5
+                        list_of_id_professionsTV.add(tv)
+                        list_of_id_professions.add(et)
+                        Log.d("MyProfile: ", "${i*5}")
+                        ll_my_profile.addView(tv)
+                        ll_my_profile.addView(et)
+                        val lpt = tv.layoutParams as MarginLayoutParams
+                        lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
 
+                    }
+                    val l = LinearLayout(this)
+                    l.orientation = LinearLayout.HORIZONTAL
+                    val et = EditText(this)
+                    val tvP=TextView(this)
+                    val p = LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    tvP.layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    et.layoutParams = p
+                    et.hint="Price"
+                    tvP.hint="Price"
+                    et.id = -1
+                    tvP.id = -2
+                    priceET=et
+                    priceTV=tvP
+                    ll_my_profile.addView(tvP)
+                    ll_my_profile.addView(et)
+
+                    val lpt = tvP.layoutParams as MarginLayoutParams
+                    lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
+                }
             }
-            val l = LinearLayout(this)
-            l.orientation = LinearLayout.HORIZONTAL
-            val et = EditText(this)
-            val tvP=TextView(this)
-            val p = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            tvP.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            et.layoutParams = p
-            et.hint="Price"
-            tvP.hint="Price"
-            et.id = -1
-            tvP.id = -2
-            priceET=et
-            priceTV=tvP
-            ll_my_profile.addView(tvP)
-            ll_my_profile.addView(et)
+            else {
+                Log.d("loadUser", "No such document")
+            }
 
-            val lpt = tvP.layoutParams as MarginLayoutParams
-            lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
         }
+//        Toast.makeText(this,SignUpActivity().allEd.size,Toast.LENGTH_LONG)
+
         btn_teach_my_profile.setOnClickListener {
             val et_add_classes: String = et_add_classes.text.toString().trim { it <= ' ' }
             val num_of_classes:Int = et_add_classes.toByte().toInt()
@@ -203,9 +220,34 @@ class MyProfileActivity : BaseActivity() {
                 )
                 et.layoutParams = p
                 et.id = (i*10)
+                et.hint="Profession$i"
                 allEd.add(et)
                 ll_adding_professions.addView(et)
             }///להוסיף מחיר רק אם הוא לא היה מורה לפני כן
+            if(list_of_id_professions.isEmpty() || list_of_id_professions.size==0){
+                val l = LinearLayout(this)
+                l.orientation = LinearLayout.HORIZONTAL
+                val et = EditText(this)
+                val tvP=TextView(this)
+                val p = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                tvP.layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                et.layoutParams = p
+                et.hint="Price"
+//                tvP.hint="Price"
+                et.id = -1000
+                tvP.id = -2000
+                AddPriceET=et
+                AddPpriceTV=tvP
+                ll_adding_professions.addView(tvP)
+                ll_adding_professions.addView(et)
+
+            }
         }
 
         FirestoreClass().loudUserData(this)
@@ -367,13 +409,18 @@ class MyProfileActivity : BaseActivity() {
                     count++
                 }
             }
-
+            if(mUserDetails.allProfession.isNotEmpty()) {
                 for (i in allEd) {
-                    var count2 = 0
-                    if(i.text.toString()!=mUserDetails.allProfession[count2])
-                    mUserDetails.allProfession.add(i.text.toString())
-                    count2++
+                        if (!mUserDetails.allProfession.contains(i.text.toString()))
+                            mUserDetails.allProfession.add(i.text.toString())
+                    }
                 }
+            else{
+                for (i in allEd) {
+                    if (!mUserDetails.allProfession.contains(i.text.toString()))
+                        mUserDetails.allProfession.add(i.text.toString())
+                }
+            }
             userHashMap2[Constants.ALLPROFESSION]= mUserDetails.allProfession
         }
 
@@ -412,13 +459,13 @@ class MyProfileActivity : BaseActivity() {
         et_area.setText(user.area)
         et_gender.setText(user.gender)
         et_age.setText(user.age.toString())
-        priceTV.hint="Price"
-        priceET.text = user.price.toString()
         if (user.mobile != 0L) {
             et_mobile.setText(user.mobile.toString())
         }
         if(user.allProfession.isNotEmpty()) {
             var count = 0
+//            priceTV.hint="Price"
+            priceET.text = user.price.toString()
 
             for (i in 0 until list_of_id_professions.size) {
                 if(list_of_id_professionsTV.isNotEmpty() && i<list_of_id_professionsTV.size) {

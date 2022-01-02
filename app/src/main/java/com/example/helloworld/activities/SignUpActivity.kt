@@ -242,7 +242,7 @@ class SignUpActivity : BaseActivity() {
                             // Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
                             val emptyProfession: ArrayList<String> = ArrayList()
-                            addUserToDatabase(name,email, firebaseUser.uid,emptyProfession,0,itemA,itemG,et_age, priceET.text.toString().trim().toInt() )
+                            addUserToDatabase2(name,email, firebaseUser.uid,emptyProfession,0,itemA,itemG,et_age)
 
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
@@ -257,7 +257,7 @@ class SignUpActivity : BaseActivity() {
                                 FirestoreClass().registerUser(this, user)
                             }
                             else {
-                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,0,itemA,itemG,age = et_age, price = priceET.text.toString().trim().toInt() )
+                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,0,itemA,itemG,age = et_age, price =0)
                                 FirestoreClass().registerUser(this, user)
                             }
 
@@ -277,9 +277,9 @@ class SignUpActivity : BaseActivity() {
         mDbRef = FirebaseDatabase.getInstance().reference
         mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,age = age, price = price))
     }
-    private fun addUserToDatabase(name: String, email: String, uid: String,age:Int, price:Int) {
+    private fun addUserToDatabase2(name: String, email: String, uid: String, allProfessions: ArrayList<String>,phone: Long, area: String, gender: String,age:Int) {
         mDbRef = FirebaseDatabase.getInstance().reference
-        mDbRef.child("user").child(uid).setValue(User(uid,name,email,age = age, price = price))
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,age = age))
     }
 
 

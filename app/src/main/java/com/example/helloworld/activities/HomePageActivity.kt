@@ -300,7 +300,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
                 print(response)
                 val u=getCurrentUser(response)
                 if(u!=null) {
-                    currentUser=User(u.uid,u.name,u.email,u.allProfession,u.mobile,u.area,u.gender,u.image)
+                    currentUser=User(u.uid,u.name,u.email,u.allProfession,u.mobile,u.area,u.gender,u.image,u.age,u.price)
 //                    Toast.makeText(this@HomePageActivity, "${currentUser.allProfession}", Toast.LENGTH_LONG).show()
 
                 }
