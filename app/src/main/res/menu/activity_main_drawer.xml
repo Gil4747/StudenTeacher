@@ -13,6 +13,11 @@
             android:icon="@drawable/ic_nav_sign_out"
             android:title="@string/nav_sign_out" />
 
+        <item
+            android:id="@+id/delete_user"
+            android:icon="@drawable/delete_user"
+            android:title="@string/delete_user" />
+
     </group>
 
 </menu>

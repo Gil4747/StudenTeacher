@@ -22,6 +22,10 @@ import com.example.helloworld.firebase.Response
 import com.example.helloworld.firebase.UsersViewModel
 import com.example.helloworld.models.User
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_home_page.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -192,6 +196,23 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
                 FirebaseAuth.getInstance().signOut()
 
                 // Send the user to the intro screen of the application.
+                val intent = Intent(this, IntroActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
+            R.id.delete_user -> {
+                val user = Firebase.auth.currentUser!!
+
+                user.delete()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            FirebaseFirestore.getInstance().collection("users").document(user.uid).delete()
+                            FirebaseFirestore.getInstance().collection("teachers").document(user.uid).delete()
+                            FirebaseDatabase.getInstance().reference.child("user").child(user.uid).removeValue()
+                            Log.d(TAG, "User account deleted.")
+                        }
+                    }
                 val intent = Intent(this, IntroActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)

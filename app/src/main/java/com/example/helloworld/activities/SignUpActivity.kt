@@ -214,7 +214,11 @@ class SignUpActivity : BaseActivity() {
         val name: String = et_name_signUp.text.toString().trim { it <= ' ' }
         val email: String = et_email_signUp.text.toString().trim { it <= ' ' }
         val password: String = et_password_signUp.text.toString().trim { it <= ' ' }
-        val phon: Long = et_mobile_signUp.text.toString().trim().toLong()
+        var phone:Long=0
+        if (!et_mobile_signUp.text.isNullOrEmpty()) {
+             phone = et_mobile_signUp.text.toString().trim().toLong()
+        }
+
         val et_age: Int = et_age_sing_up.text.toString().trim().toInt()
 //        val gender: String = spn_gender.text.toString().trim { it <= ' ' }
         val et_how_many_classes: String = et_how_many_classes.text.toString().trim { it <= ' ' }
@@ -235,7 +239,7 @@ class SignUpActivity : BaseActivity() {
                             // Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
                             val emptyProfession: ArrayList<String> = ArrayList()
-                            addUserToDatabase2(name,email, firebaseUser.uid,emptyProfession,phon,itemA,itemG,et_age)
+                            addUserToDatabase2(name,email, firebaseUser.uid,emptyProfession,phone,itemA,itemG,et_age)
 
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
@@ -245,19 +249,23 @@ class SignUpActivity : BaseActivity() {
                                 var allPrice:HashMap<String,Int> =HashMap()
                                 var count=0
                                 for (i in allEd){
-                                    allProfessions.add( i.text.toString().trim { it <= ' ' })
+                                    if(i.text.isNotEmpty()) {
+                                        allProfessions.add(i.text.toString().trim { it <= ' ' })
+                                    }
                                 }
                                 var count2=0
                                 for(j in allEdPrice){
-                                    allPrice.put(allProfessions[count2],j.text.toString().toInt())
+                                    if(j.text.isNotEmpty()) {
+                                        allPrice.put(allProfessions[count2], j.text.toString().toInt())
+                                    }
                                     count++
                                 }
-                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,phon,itemA,itemG, age = et_age, price = allPrice )
-                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,phon,itemA,itemG,et_age, allPrice)
+                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,phone,itemA,itemG, age = et_age, price = allPrice )
+                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,phone,itemA,itemG,et_age, allPrice)
                                 FirestoreClass().registerUser(this, user)
                             }
                             else {
-                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,phon,itemA,itemG,age = et_age)
+                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,phone,itemA,itemG,age = et_age)
                                 FirestoreClass().registerUser(this, user)
                             }
 
