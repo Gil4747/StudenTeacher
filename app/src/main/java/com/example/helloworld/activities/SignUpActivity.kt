@@ -3,6 +3,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.text.InputType.TYPE_CLASS_NUMBER
 import android.text.TextUtils
 import android.util.Log
 import android.view.Display
@@ -33,7 +34,7 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 class SignUpActivity : BaseActivity() {
     var allEd: MutableList<EditText> = ArrayList()
     companion object {
-
+        lateinit var priceET: EditText
         lateinit var itemA: String
         lateinit var itemG: String
     }
@@ -144,6 +145,19 @@ class SignUpActivity : BaseActivity() {
                 allEd.add(et)
                 ll.addView(et)
             }
+
+            val et = EditText(this)
+            et.inputType=TYPE_CLASS_NUMBER
+            val p = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            et.layoutParams = p
+            et.id = 0
+            et.hint="Price:"
+            priceET=et
+            ll.addView(et)
+
         }
 //        val btn_i_want_teach = findViewById<Button>(R.id.btn_i_want_teach)
 //        btn_i_want_teach.setOnClickListener {
@@ -208,7 +222,7 @@ class SignUpActivity : BaseActivity() {
         val email: String = et_email_signUp.text.toString().trim { it <= ' ' }
         val password: String = et_password_signUp.text.toString().trim { it <= ' ' }
         val phon: String = et_mobile_signUp.text.toString().trim { it <= ' ' }
-//        val area: String = spn_area_R.text.toString().trim { it <= ' ' }
+        val et_age: Int = et_age_sing_up.text.toString().trim().toInt()
 //        val gender: String = spn_gender.text.toString().trim { it <= ' ' }
         val et_how_many_classes: String = et_how_many_classes.text.toString().trim { it <= ' ' }
 //        val prof1: String = et_prof1_signUp.text.toString().trim { it <= ' ' }
@@ -228,7 +242,7 @@ class SignUpActivity : BaseActivity() {
                             // Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
                             val emptyProfession: ArrayList<String> = ArrayList()
-                            addUserToDatabase(name,email, firebaseUser.uid,emptyProfession,0,itemA,itemG)
+                            addUserToDatabase(name,email, firebaseUser.uid,emptyProfession,0,itemA,itemG,et_age, priceET.text.toString().trim().toInt() )
 
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
@@ -238,12 +252,12 @@ class SignUpActivity : BaseActivity() {
                                 for (i in allEd){
                                     allProfessions.add( i.text.toString().trim { it <= ' ' })
                                 }
-                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,0,itemA,itemG)
-                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,0,itemA,itemG)
+                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,0,itemA,itemG, age = et_age, price = priceET.text.toString().trim().toInt() )
+                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,0,itemA,itemG,et_age, priceET.text.toString().trim().toInt() )
                                 FirestoreClass().registerUser(this, user)
                             }
                             else {
-                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,0,itemA,itemG)
+                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,0,itemA,itemG,age = et_age, price = priceET.text.toString().trim().toInt() )
                                 FirestoreClass().registerUser(this, user)
                             }
 
@@ -259,13 +273,13 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
-    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>,phone: Long, area: String, gender: String) {
+    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>,phone: Long, area: String, gender: String,age:Int, price:Int) {
         mDbRef = FirebaseDatabase.getInstance().reference
-        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender))
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,age = age, price = price))
     }
-    private fun addUserToDatabase(name: String, email: String, uid: String) {
+    private fun addUserToDatabase(name: String, email: String, uid: String,age:Int, price:Int) {
         mDbRef = FirebaseDatabase.getInstance().reference
-        mDbRef.child("user").child(uid).setValue(User(uid,name,email))
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email,age = age, price = price))
     }
 
 

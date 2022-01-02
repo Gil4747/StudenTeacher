@@ -1,8 +1,7 @@
 package com.example.helloworld.activities
 
 import android.Manifest
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
@@ -19,6 +18,7 @@ import android.view.WindowManager
 import android.webkit.MimeTypeMap
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -31,19 +31,16 @@ import com.example.helloworld.firebase.Response
 import com.example.helloworld.firebase.UsersViewModel
 import com.example.helloworld.models.User
 import com.example.helloworld.utils.Constants
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.io.IOException
-import java.io.ObjectInput
-import java.lang.reflect.Type
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
+import android.view.ViewGroup.MarginLayoutParams
+import kotlinx.android.synthetic.main.dropdown_item.view.*
 
 
 class MyProfileActivity : BaseActivity() {
@@ -51,10 +48,12 @@ class MyProfileActivity : BaseActivity() {
     companion object{
         private const val READ_STORAGE_PERMISSION_CODE =1
         private const val PICK_IMAGE_REQUEST_CODE =2
-
+        lateinit var priceET: TextView
+        lateinit var priceTV: TextView
         private lateinit var CurrentUser:User
     }
     var list_of_id_professions: ArrayList<EditText> = ArrayList()
+    var list_of_id_professionsTV: ArrayList<TextView> = ArrayList()
     var allEd: ArrayList<EditText> = ArrayList()
     private lateinit var viewModel: UsersViewModel
     // TODO (Add a global variable for URI of a selected image from phone storage.)
@@ -71,6 +70,7 @@ class MyProfileActivity : BaseActivity() {
     private var mProfileImageURL: String = ""
     // END
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
@@ -126,24 +126,63 @@ class MyProfileActivity : BaseActivity() {
 //            setContentView(R.layout.activity_sign_up)
 //            val allEds: MutableList<EditText> = ArrayList()
             val ll_my_profile = findViewById<View>(R.id.ll_my_profile) as LinearLayout
+
             val display: Display =
                 (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
             val width: Int = display.getWidth() / 3
             for (i in 1..HomePageActivity.currentUser.allProfession.size) {
                 val l = LinearLayout(this)
                 l.orientation = LinearLayout.HORIZONTAL
-                val et = EditText(this)
+                val tv=TextView(this)
+                val et = EditText(this)///לשנות את זה לTextView
                 val p = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
+
+                tv.layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+
                 et.layoutParams = p
                 et.hint="profession"
+                tv.hint="profession"
                 et.id = i * 5
+                tv.id = (-i) * 5
+                list_of_id_professionsTV.add(tv)
                 list_of_id_professions.add(et)
                 Log.d("MyProfile: ", "${i*5}")
+                ll_my_profile.addView(tv)
                 ll_my_profile.addView(et)
+                val lpt = tv.layoutParams as MarginLayoutParams
+                lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
+
             }
+            val l = LinearLayout(this)
+            l.orientation = LinearLayout.HORIZONTAL
+            val et = EditText(this)
+            val tvP=TextView(this)
+            val p = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            tvP.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            et.layoutParams = p
+            et.hint="Price"
+            tvP.hint="Price"
+            et.id = -1
+            tvP.id = -2
+            priceET=et
+            priceTV=tvP
+            ll_my_profile.addView(tvP)
+            ll_my_profile.addView(et)
+
+            val lpt = tvP.layoutParams as MarginLayoutParams
+            lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
         }
         btn_teach_my_profile.setOnClickListener {
             val et_add_classes: String = et_add_classes.text.toString().trim { it <= ' ' }
@@ -166,7 +205,7 @@ class MyProfileActivity : BaseActivity() {
                 et.id = (i*10)
                 allEd.add(et)
                 ll_adding_professions.addView(et)
-            }
+            }///להוסיף מחיר רק אם הוא לא היה מורה לפני כן
         }
 
         FirestoreClass().loudUserData(this)
@@ -300,6 +339,7 @@ class MyProfileActivity : BaseActivity() {
             userHashMap[Constants.GENDER] = et_gender.text.toString()
 
         }
+
         if(mUserDetails.mobile.toString()!=""){
         if (et_mobile.text.toString() != mUserDetails.mobile.toString()) {
             userHashMap[Constants.MOBILE] = et_mobile.text.toString().toLong()
@@ -371,6 +411,9 @@ class MyProfileActivity : BaseActivity() {
         et_email.setText(user.email)
         et_area.setText(user.area)
         et_gender.setText(user.gender)
+        et_age.setText(user.age.toString())
+        priceTV.hint="Price"
+        priceET.text = user.price.toString()
         if (user.mobile != 0L) {
             et_mobile.setText(user.mobile.toString())
         }
@@ -378,12 +421,15 @@ class MyProfileActivity : BaseActivity() {
             var count = 0
 
             for (i in 0 until list_of_id_professions.size) {
+                if(list_of_id_professionsTV.isNotEmpty() && i<list_of_id_professionsTV.size) {
+                    list_of_id_professionsTV[i].hint = "Profession${count + 1}"
+                }
                 list_of_id_professions[i].setText(user.allProfession[count])
                 count++
                 }
 
             }
-        CurrentUser= User(user.uid,user.name,user.email,user.allProfession,user.mobile,user.area,user.gender,user.image)
+        CurrentUser= User(user.uid,user.name,user.email,user.allProfession,user.mobile,user.area,user.gender,user.image,user.age,user.price)
     }
     // END
 

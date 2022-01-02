@@ -30,7 +30,7 @@ class FirestoreClass {
     
     fun registerUser(activity: SignUpActivity, userInfo: User) {
         if(userInfo.allProfession.isEmpty())
-            addUserToDatabase(userInfo.name,userInfo.email, FirebaseAuth.getInstance().currentUser?.uid!!)
+            addUserToDatabase(userInfo.name,userInfo.email, FirebaseAuth.getInstance().currentUser?.uid!!,userInfo.allProfession,userInfo.mobile,userInfo.area,userInfo.gender,userInfo.age,userInfo.price)
 
         mFireStore.collection(Constants.USERS)
             // Document ID for users fields. Here the document it is the User ID.
@@ -52,7 +52,7 @@ class FirestoreClass {
 
 
         if(userInfo.allProfession.isNotEmpty()) {
-            addUserToDatabase(userInfo.name,userInfo.email, FirebaseAuth.getInstance().currentUser?.uid!!,userInfo.allProfession)
+            addUserToDatabase(userInfo.name,userInfo.email, FirebaseAuth.getInstance().currentUser?.uid!!,userInfo.allProfession,userInfo.mobile,userInfo.area,userInfo.gender,userInfo.age,userInfo.price)
             mFireStore.collection(Constants.TEACHERS)
                 // Document ID for users fields. Here the document it is the User ID.
                 .document(getCurrentUserID())
@@ -72,14 +72,14 @@ class FirestoreClass {
                 }
         }
     }
-    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>) {
+    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>, phone:Long, area: String, gender: String,age:Int, price:Int) {
         mDbRef = FirebaseDatabase.getInstance().reference
-        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions))
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,"",age,price))
     }
-    private fun addUserToDatabase(name: String, email: String, uid: String) {
-        mDbRef = FirebaseDatabase.getInstance().reference
-        mDbRef.child("user").child(uid).setValue(User(uid,name,email))
-    }
+//    private fun addUserToDatabase(name: String, email: String, uid: String, phone:Long, area: String, gender: String,age:Int, price:Int) {
+//        mDbRef = FirebaseDatabase.getInstance().reference
+//        mDbRef.child("user").child(uid).setValue(User(uid,name,email))
+//    }
     fun updateUserToDatabase(activity: MyProfileActivity, userHashMap: HashMap<String, Any>) {
         mDbRef = FirebaseDatabase.getInstance().reference
         for (i in 0 until userHashMap.size) {

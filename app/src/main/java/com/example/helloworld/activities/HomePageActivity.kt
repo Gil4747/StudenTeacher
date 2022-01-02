@@ -7,10 +7,8 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.*
 import android.widget.Spinner
 import androidx.core.view.GravityCompat
@@ -28,7 +26,6 @@ import kotlinx.android.synthetic.main.activity_home_page.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.main_content.*
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_sign_in_g.*
 import kotlinx.android.synthetic.main.dropdown_item.view.*
 
@@ -244,7 +241,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         val listView = findViewById<ListView>(R.id.listView)
         val adapter: ArrayAdapter<String> =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
-        listView.adapter = adapter
+//        listView.adapter = adapter
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 search.clearFocus()

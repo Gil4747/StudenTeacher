@@ -10,12 +10,12 @@ data class User(
     val mobile: Long = 0,
     val area: String = "",
     val gender: String = "",
-    val image: String = ""
+    val image: String = "",
+    val age: Int = 0,
+    val price: Int = 0
 
 
 
-//    val profession2: String = "",
-//    val profession3: String = ""
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -25,7 +25,9 @@ data class User(
         parcel.readLong(),
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.readString()!!
+        parcel.readString()!!,
+        parcel.readInt()!!,
+        parcel.readInt()!!
     )
 
    
@@ -40,6 +42,8 @@ data class User(
         writeString(area)
         writeString(gender)
         writeString(image)
+        writeInt(age)
+        writeInt(price)
 
 //        writeString(profession2)
 //        writeString(profession3)

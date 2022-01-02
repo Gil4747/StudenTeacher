@@ -160,9 +160,29 @@
                         android:hint="@string/phone"
                         android:inputType="phone"
                         android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-<!--                <com.google.android.material.textfield.TextInputLayout-->
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"
+                    android:layout_marginTop="@dimen/authentication_screen_til_marginTop"
+                    android:layout_marginEnd="@dimen/authentication_screen_til_marginStartEnd">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_age_sing_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/age"
+                        android:inputType="number"
+                        android:textSize="16sp" />
+
+
+
+                <!--                <com.google.android.material.textfield.TextInputLayout-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="wrap_content"-->
 <!--                    android:layout_marginStart="@dimen/authentication_screen_til_marginStartEnd"-->
