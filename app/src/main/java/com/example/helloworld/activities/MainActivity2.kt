@@ -12,10 +12,6 @@ import com.example.helloworld.R
 import com.example.helloworld.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.main_content.*
-import android.content.Intent
-
-
 
 
 class MainActivity2 : AppCompatActivity() {
@@ -32,12 +28,14 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_2_1)
+        supportActionBar?.title = "Select teacher"
 
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseDatabase.getInstance().reference
 
         userList = ArrayList()
         adapter = UserAdapter(this,userList)
+
 
 
         userRecyclerView = findViewById(R.id.recyclerView)
@@ -51,16 +49,12 @@ class MainActivity2 : AppCompatActivity() {
                 userList.clear()
                 for (postSnapshot in snapshot.children){
                     val currentUser = postSnapshot.getValue(User::class.java)
-                    Log.d("Main2", "${mAuth.currentUser?.uid}")
-                    Log.d("Main2-currentId", "${currentUser?.uid}")
                     if(mAuth.currentUser?.uid != currentUser?.uid){
-                        Log.d("Main2---------","klsjdflkjl")
                         if(currentUser?.allProfession!!.size>0){
                             if(HomePageActivity.itemZ !="No") {
                                 for (i in currentUser.allProfession) {
-                                    Log.d("Main2---------לגךדח", "HomePageActivity.profession")
-
                                     if (i == HomePageActivity.profession) {
+                                        Log.d("MA", "$currentUser")
                                         userList.add(currentUser!!)
                                     }
                                 }
@@ -71,6 +65,7 @@ class MainActivity2 : AppCompatActivity() {
                                         Log.d("Main2---------לגךדח", "HomePageActivity.profession")
 
                                         if (i == HomePageActivity.profession) {
+                                            Log.d("MA", "$currentUser")
                                             userList.add(currentUser!!)
                                         }
                                     }

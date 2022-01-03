@@ -12,7 +12,8 @@ data class User(
     val gender: String = "",
     var image: String = "",
     var age: Int = 0,
-    var price: HashMap<String, Int> = HashMap()
+    var price: HashMap<String, Int> = HashMap(),
+    var chatList: HashMap<String, User> = HashMap()
 
 
 
@@ -27,7 +28,8 @@ data class User(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readInt()!!,
-        parcel.readHashMap(Int::class.java.classLoader)!! as HashMap<String, Int>
+        parcel.readHashMap(Int::class.java.classLoader)!! as HashMap<String, Int>,
+        parcel.readHashMap(User::class.java.classLoader)!! as HashMap<String, User>
     )
 
    
@@ -44,6 +46,7 @@ data class User(
         writeString(image)
         writeInt(age)
         writeMap(price)
+        writeMap(chatList)
 
 //        writeString(profession2)
 //        writeString(profession3)

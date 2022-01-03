@@ -239,7 +239,9 @@ class SignUpActivity : BaseActivity() {
                             // Firebase registered user
                             val firebaseUser: FirebaseUser = task.result!!.user!!
                             val emptyProfession: ArrayList<String> = ArrayList()
-                            addUserToDatabase2(name,email, firebaseUser.uid,emptyProfession,phone,itemA,itemG,et_age)
+                            var chatList: HashMap<String, User> = HashMap()
+                            var price: HashMap<String, Int> = HashMap()
+                            addUserToDatabase2(name,email, firebaseUser.uid,emptyProfession,phone,itemA,itemG,et_age,price,chatList)
 
                             // Registered Email
                             val registeredEmail = firebaseUser.email!!
@@ -260,12 +262,14 @@ class SignUpActivity : BaseActivity() {
                                     }
                                     count++
                                 }
-                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,phone,itemA,itemG, age = et_age, price = allPrice )
-                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,phone,itemA,itemG,et_age, allPrice)
+                                var chatList: HashMap<String, User> = HashMap()
+                                val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,phone,itemA,itemG, age = et_age, price = allPrice, chatList = chatList )
+                                addUserToDatabase(name,registeredEmail, firebaseUser.uid, allProfessions,phone,itemA,itemG,et_age, allPrice,chatList)
                                 FirestoreClass().registerUser(this, user)
                             }
                             else {
-                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,phone,itemA,itemG,age = et_age)
+                                var chatList: HashMap<String, User> = HashMap()
+                                val user = User(firebaseUser.uid, name, registeredEmail,emptyProfession,phone,itemA,itemG,age = et_age, chatList = chatList)
                                 FirestoreClass().registerUser(this, user)
                             }
 
@@ -281,13 +285,13 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
-    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>,phone: Long, area: String, gender: String,age:Int, price:HashMap<String, Int>) {
+    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>,phone: Long, area: String, gender: String,age:Int, price:HashMap<String, Int>,chatList:HashMap<String,User>) {
         mDbRef = FirebaseDatabase.getInstance().reference
-        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,age = age, price = price))
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,age = age, price = price, chatList = chatList))
     }
-    private fun addUserToDatabase2(name: String, email: String, uid: String, allProfessions: ArrayList<String>,phone: Long, area: String, gender: String,age:Int) {
+    private fun addUserToDatabase2(name: String, email: String, uid: String, allProfessions: ArrayList<String>,phone: Long, area: String, gender: String,age:Int,price:HashMap<String,Int>,chatList:HashMap<String,User>) {
         mDbRef = FirebaseDatabase.getInstance().reference
-        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,age = age))
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,age = age,price=price, chatList = chatList))
     }
 
 

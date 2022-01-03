@@ -17,12 +17,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".activities.MyMessage"
+            android:exported="false" >
+        <meta-data android:name="android.support.PARENT_ACTIVITY"
+            android:value=".activities.HomePageActivity" />
+        </activity>
+        <activity
             android:name=".activities.ChatActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity2"
             android:exported="false" />
-
         <activity
             android:name=".activities.MyProfileActivity"
             android:exported="false"
@@ -62,6 +67,7 @@
             android:exported="false"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

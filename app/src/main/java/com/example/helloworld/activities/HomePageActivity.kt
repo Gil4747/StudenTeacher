@@ -218,6 +218,12 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
                 startActivity(intent)
                 finish()
             }
+            R.id.my_message -> {
+                val intent = Intent(this, MyMessage::class.java)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         // END

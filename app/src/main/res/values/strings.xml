@@ -16,7 +16,12 @@
     <string name="sign_in">SIGN IN</string>
     <string name="phone">Phone</string>
     <string name="age">Age</string>
+    <string name="ageCard">Age:</string>
+
+
     <string name="price">Price</string>
+    <string name="priceCard">Price:</string>
+    <string name="mobileCard">Mobile:</string>
     <string name="confirm_password">Confirm Password</string>
 
     <string name="sign_up">SIGN UP</string>
@@ -25,6 +30,7 @@
 
 
     <string name="name">Name</string>
+    <string name="nameCard">Name:</string>
 
     <string name="password">Password</string>
 
@@ -38,7 +44,9 @@
     <string name="nav_my_profile">My Profile</string>
 
     <string name="nav_sign_out">Sign Out</string>
-    <string name="delete_user">Delete account</string>
+    <string name="message">My Message</string>
+
+    <string name="delete_user">Delete Account</string>
 
     <string name="mobile">Mobile</string>
 

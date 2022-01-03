@@ -27,10 +27,10 @@ class FirestoreClass {
     /**
      * A function to make an entry of the registered user in the firestore database.
      */
-    
+
     fun registerUser(activity: SignUpActivity, userInfo: User) {
         if(userInfo.allProfession.isEmpty())
-            addUserToDatabase(userInfo.name,userInfo.email, FirebaseAuth.getInstance().currentUser?.uid!!,userInfo.allProfession,userInfo.mobile,userInfo.area,userInfo.gender,userInfo.age,userInfo.price)
+            addUserToDatabase(userInfo.name,userInfo.email, FirebaseAuth.getInstance().currentUser?.uid!!,userInfo.allProfession,userInfo.mobile,userInfo.area,userInfo.gender,userInfo.age,userInfo.price,userInfo.chatList)
 
         mFireStore.collection(Constants.USERS)
             // Document ID for users fields. Here the document it is the User ID.
@@ -52,7 +52,7 @@ class FirestoreClass {
 
 
         if(userInfo.allProfession.isNotEmpty()) {
-            addUserToDatabase(userInfo.name,userInfo.email, FirebaseAuth.getInstance().currentUser?.uid!!,userInfo.allProfession,userInfo.mobile,userInfo.area,userInfo.gender,userInfo.age,userInfo.price)
+            addUserToDatabase(userInfo.name,userInfo.email, FirebaseAuth.getInstance().currentUser?.uid!!,userInfo.allProfession,userInfo.mobile,userInfo.area,userInfo.gender,userInfo.age,userInfo.price,userInfo.chatList)
             mFireStore.collection(Constants.TEACHERS)
                 // Document ID for users fields. Here the document it is the User ID.
                 .document(getCurrentUserID())
@@ -72,11 +72,13 @@ class FirestoreClass {
                 }
         }
     }
-    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>, phone:Long, area: String, gender: String,age:Int, price:HashMap<String,Int>) {
+    private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>, phone:Long, area: String, gender: String,age:Int, price:HashMap<String,Int>, chatList:HashMap<String,User>) {
         mDbRef = FirebaseDatabase.getInstance().reference
-        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,"",age,price))
+        val u= User("skckdl","gil","gilqwer1@gmail.com")
+        chatList.put("d,jfajk",u)
+        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,"",age,price,chatList))
     }
-//    private fun addUserToDatabase(name: String, email: String, uid: String, phone:Long, area: String, gender: String,age:Int, price:Int) {
+    //    private fun addUserToDatabase(name: String, email: String, uid: String, phone:Long, area: String, gender: String,age:Int, price:Int) {
 //        mDbRef = FirebaseDatabase.getInstance().reference
 //        mDbRef.child("user").child(uid).setValue(User(uid,name,email))
 //    }

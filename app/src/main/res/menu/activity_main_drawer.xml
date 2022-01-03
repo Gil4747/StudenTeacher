@@ -18,6 +18,11 @@
             android:icon="@drawable/delete_user"
             android:title="@string/delete_user" />
 
+        <item
+            android:id="@+id/my_message"
+            android:icon="@drawable/message"
+            android:title="@string/message" />
+
     </group>
 
 </menu>

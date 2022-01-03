@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
     app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="#0BCCEB"
     app:cardElevation="8dp">
 
 
@@ -19,20 +20,27 @@
         android:orientation="vertical">
 
 
-        -
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_profile_user_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10sp"
+                android:contentDescription="@string/image_contentDescription"
+                android:src="@drawable/ic_user_place_holder"
+                app:civ_border_width="2dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/name"
+                android:text="@string/nameCard"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -42,7 +50,7 @@
                 android:layout_marginStart="8dp"
                 android:text="batya ashkenazi"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="17sp" />
 
         </LinearLayout>
 
@@ -58,9 +66,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/age"
+                android:text="@string/ageCard"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -69,8 +77,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="89"
+                android:textStyle="italic"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="17sp"
+                />
 
         </LinearLayout>
 
@@ -86,9 +96,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mobile:"
+                android:text="@string/mobileCard"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -98,7 +108,8 @@
                 android:layout_marginStart="8dp"
                 android:text="0547883342"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textStyle="italic"
+                android:textSize="17sp" />
 
         </LinearLayout>
         <LinearLayout
@@ -110,9 +121,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/price"
+                android:text="@string/priceCard"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -121,7 +132,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:text="100"
+                android:textStyle="italic"
+                android:textSize="17sp" />
 
         </LinearLayout>
 

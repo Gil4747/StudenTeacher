@@ -5,6 +5,9 @@ plugins {
     id 'com.google.gms.google-services'
 
 }
+androidExtensions{
+    experimental= true
+}
 
 android {
     compileSdk 31
@@ -18,7 +21,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    androidExtensions {
+        experimental = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -35,10 +40,33 @@ android {
     buildFeatures {
         viewBinding true
     }
+    androidExtensions {
+        experimental = true
+    }
+    viewBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation'androidx.cardview:cardview:1.0.0'
 
+//    implementation 'com.github.lisawray.groupie:groupie:2.1.0'
+//    implementation 'com.github.lisawray.groupie:groupie-viewbinding:2.1.0'
+//    implementation 'com.github.lisawray.groupie:groupie:2.1.0'
+//    implementation 'com.github.lisawray.groupie:groupie-databinding:2.1.0'
+
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
+    implementation ("io.coil-kt:coil:0.11.0")
 
 //    implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
