@@ -18,17 +18,18 @@ import com.example.helloworld.firebase.FirestoreClass
 import com.example.helloworld.models.User
 import com.example.helloworld.utils.Constants
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_my_profile.*
+import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class UserProfileActivity : AppCompatActivity() {
     // TODO (Add the global variables for UserDetails and Profile Image URL.)
     // START
     // A global variable for user details.
     private lateinit var mUserDetails: User
-    var list_of_id_professions: ArrayList<EditText> = ArrayList()
-    var list_of_id_professionsTV: ArrayList<TextView> = ArrayList()
-    var list_of_id_price: ArrayList<EditText> = ArrayList()
-    var list_of_id_priceTV: ArrayList<TextView> = ArrayList()
+
+        var list_of_id_professions: ArrayList<EditText> = ArrayList()
+        var list_of_id_professionsTV: ArrayList<TextView> = ArrayList()
+        var list_of_id_price: ArrayList<EditText> = ArrayList()
+        var list_of_id_priceTV: ArrayList<TextView> = ArrayList()
 
     // A global variable for a user profile image URL
     private var mProfileImageURL: String = ""
@@ -37,10 +38,6 @@ class UserProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
-        FirestoreClass().loudUserData(this)
-
-
-
 
 
         FirebaseFirestore.getInstance().collection(Constants.USERS)
@@ -50,12 +47,12 @@ class UserProfileActivity : AppCompatActivity() {
                     val loggedInUser =
                         document.toObject(User::class.java)!!
                     if (loggedInUser.allProfession.isNotEmpty()) {
-                        val ll_my_profile = findViewById<View>(R.id.ll_my_profile) as LinearLayout
+                        val ll_my_profile = findViewById<View>(R.id.ll_user_profile) as LinearLayout
 
                         val display: Display =
                             (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
                         val width: Int = display.getWidth() / 3
-                        for (i in 1..HomePageActivity.currentUser.allProfession.size) {
+                        for (i in 1..loggedInUser.allProfession.size) {
                             val l = LinearLayout(this)
                             l.orientation = LinearLayout.HORIZONTAL
                             val tv = TextView(this)
@@ -82,12 +79,12 @@ class UserProfileActivity : AppCompatActivity() {
                             tv.hint = "Profession"
                             etP.hint = "Price"
                             tvP.hint = "Price"
-                            et.id = i * 5
-                            tv.id = (-i) * 5
                             list_of_id_professionsTV.add(tv)
                             list_of_id_professions.add(et)
                             list_of_id_priceTV.add(tvP)
                             list_of_id_price.add(etP)
+                            Log.d("klfjslgkjsfl", "${list_of_id_professions.size}")
+                            Log.d("klfjslgkjsfl", "${list_of_id_price.size}")
                             Log.d("MyProfile: ", "${i * 5}")
                             ll_my_profile.addView(tv)
                             ll_my_profile.addView(et)
@@ -102,6 +99,7 @@ class UserProfileActivity : AppCompatActivity() {
                     }
                 }
             }
+        FirestoreClass().loudUserData(this)
     }
                 fun setUserDataInUI(user: User) {
                     // TODO (Initialize the user details variable)
@@ -117,13 +115,13 @@ class UserProfileActivity : AppCompatActivity() {
                         .into(iv_profile_user_image)
 
 
-                    et_name.setText(user.name)
-                    et_email.setText(user.email)
-                    et_area.setText(user.area)
-                    et_gender.setText(user.gender)
-                    et_age.setText(user.age.toString())
+                    tv_user_name.setText(user.name)
+                    tv_user_email.setText(user.email)
+                    tv_user_area.setText(user.area)
+                    tv_user_gender.setText(user.gender)
+                    tv_user_age.setText(user.age.toString())
                     if (user.mobile != 0L) {
-                        et_mobile.setText(user.mobile.toString())
+                        tv_user_mobile.setText(user.mobile.toString())
                     }
                     if (user.allProfession.isNotEmpty()) {
                         var count = 0
@@ -138,7 +136,11 @@ class UserProfileActivity : AppCompatActivity() {
                             list_of_id_professions[i].setText(user.allProfession[count])
                             count++
                         }
+                        Log.d("klfjslgkjsfl", "${list_of_id_professions.size}")
+                        Log.d("klfjslgkjsfl", "${list_of_id_price.size}")
                         for (i in 0 until list_of_id_price.size) {
+                            Log.d("klfjslgkjsfl", "$i")
+                            Log.d("klfjslgkjsfl", list_of_id_professions[i].text.toString())
                             if (list_of_id_priceTV.isNotEmpty() && i < list_of_id_priceTV.size) {
                                 list_of_id_priceTV[i].hint = "Price"
                             }
