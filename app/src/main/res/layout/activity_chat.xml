@@ -31,16 +31,16 @@
             android:src="@drawable/my_arrow_send"
             android:layout_weight="20" />
 
-    <EditText
-        android:id="@+id/messageBox"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:hint="Type a message"
-        android:layout_marginLeft="20dp"
-        android:paddingLeft="10dp"
-       android:layout_marginRight="0dp"
-        android:background="@drawable/message_box_background"
-        android:layout_weight="85" />
+        <EditText
+            android:id="@+id/messageBox"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:hint="Type a message"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="10dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/message_box_background"
+            android:layout_weight="85" />
 
 
 
