@@ -34,9 +34,11 @@ class ChatActivity : AppCompatActivity() {
 
     var receiveRoom: String? =null
     var senderRoom: String? =null
+
     companion object {
         private lateinit var chatMapR: HashMap<String,User>
         private lateinit var chatMapS: HashMap<String,User>
+        var receiverUid: String? = null
     }
 
 //    private lateinit var binding: ResultProfileBinding
@@ -51,7 +53,7 @@ class ChatActivity : AppCompatActivity() {
 
 
     val name = intent.getStringExtra("name")
-    val receiverUid = intent.getStringExtra("uid")
+    receiverUid = intent.getStringExtra("uid")
     Log.d("Reciver", "${receiverUid}")
 //        ksdljjjjjjjjjjakdljdslkjflkdj
     val senderUid1 = FirebaseAuth.getInstance().currentUser?.uid
@@ -115,7 +117,7 @@ class ChatActivity : AppCompatActivity() {
                             if (receiverUid != null) {
                                 val docRef =
                                     FirebaseFirestore.getInstance().collection(Constants.USERS)
-                                        .document(receiverUid)
+                                        .document(receiverUid!!)
                                 docRef.get().addOnSuccessListener { document ->
                                     if (document.exists()) {
                                         val loggedInUser = document.toObject(User::class.java)!!
@@ -153,7 +155,7 @@ class ChatActivity : AppCompatActivity() {
                     chatMapR).addOnSuccessListener {
                 }
                 if (receiverUid != null) {
-                    FirebaseDatabase.getInstance().reference.child("user").child(receiverUid).child("chatList").setValue(
+                    FirebaseDatabase.getInstance().reference.child("user").child(receiverUid!!).child("chatList").setValue(
                         chatMapS).addOnSuccessListener {
                     }
                 }

@@ -40,66 +40,70 @@ class UserProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_profile)
 
 
-        FirebaseFirestore.getInstance().collection(Constants.USERS)
-            .document(FirestoreClass().getCurrentUserID()).get().addOnSuccessListener { document ->
-                if (document.exists()) {
-                    // Here we have received the document snapshot which is converted into the User Data model object.
-                    val loggedInUser =
-                        document.toObject(User::class.java)!!
-                    if (loggedInUser.allProfession.isNotEmpty()) {
-                        val ll_my_profile = findViewById<View>(R.id.ll_user_profile) as LinearLayout
+        ChatActivity.receiverUid?.let {
+            FirebaseFirestore.getInstance().collection(Constants.USERS)
+                .document(it).get().addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        // Here we have received the document snapshot which is converted into the User Data model object.
+                        val loggedInUser =
+                            document.toObject(User::class.java)!!
+                        if (loggedInUser.allProfession.isNotEmpty()) {
+                            val ll_my_profile = findViewById<View>(R.id.ll_user_profile) as LinearLayout
 
-                        val display: Display =
-                            (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-                        val width: Int = display.getWidth() / 3
-                        for (i in 1..loggedInUser.allProfession.size) {
-                            val l = LinearLayout(this)
-                            l.orientation = LinearLayout.HORIZONTAL
-                            val tv = TextView(this)
-                            val et = EditText(this)///לשנות את זה לTextView
-                            val tvP = TextView(this)
-                            val etP = EditText(this)///לשנות את זה לTextView
-                            val p = LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT
-                            )
+                            val display: Display =
+                                (applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+                            val width: Int = display.getWidth() / 3
+                            for (i in 1..loggedInUser.allProfession.size) {
+                                val l = LinearLayout(this)
+                                l.orientation = LinearLayout.HORIZONTAL
+                                val tv = TextView(this)
+                                val et = EditText(this)///לשנות את זה לTextView
+                                val tvP = TextView(this)
+                                val etP = EditText(this)///לשנות את זה לTextView
+                                val p = LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT
+                                )
 
-                            tv.layoutParams = ViewGroup.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT
-                            )
-                            tvP.layoutParams = ViewGroup.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT
-                            )
+                                tv.layoutParams = ViewGroup.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT
+                                )
+                                tvP.layoutParams = ViewGroup.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT
+                                )
 
-                            et.layoutParams = p
-                            etP.layoutParams = p
-                            et.hint = "Profession"
-                            tv.hint = "Profession"
-                            etP.hint = "Price"
-                            tvP.hint = "Price"
-                            list_of_id_professionsTV.add(tv)
-                            list_of_id_professions.add(et)
-                            list_of_id_priceTV.add(tvP)
-                            list_of_id_price.add(etP)
-                            Log.d("klfjslgkjsfl", "${list_of_id_professions.size}")
-                            Log.d("klfjslgkjsfl", "${list_of_id_price.size}")
-                            Log.d("MyProfile: ", "${i * 5}")
-                            ll_my_profile.addView(tv)
-                            ll_my_profile.addView(et)
-                            ll_my_profile.addView(tvP)
-                            ll_my_profile.addView(etP)
-                            val lpt = tv.layoutParams as ViewGroup.MarginLayoutParams
-                            lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
-                            val lpt2 = tvP.layoutParams as ViewGroup.MarginLayoutParams
-                            lpt.setMargins(20, lpt2.topMargin, lpt2.rightMargin, lpt2.bottomMargin)
+                                et.layoutParams = p
+                                etP.layoutParams = p
+                                et.hint = "Profession"
+                                tv.hint = "Profession"
+                                etP.hint = "Price"
+                                tvP.hint = "Price"
+                                list_of_id_professionsTV.add(tv)
+                                list_of_id_professions.add(et)
+                                list_of_id_priceTV.add(tvP)
+                                list_of_id_price.add(etP)
+                                Log.d("klfjslgkjsfl", "${list_of_id_professions.size}")
+                                Log.d("klfjslgkjsfl", "${list_of_id_price.size}")
+                                Log.d("MyProfile: ", "${i * 5}")
+                                ll_my_profile.addView(tv)
+                                ll_my_profile.addView(et)
+                                ll_my_profile.addView(tvP)
+                                ll_my_profile.addView(etP)
+                                val lpt = tv.layoutParams as ViewGroup.MarginLayoutParams
+                                lpt.setMargins(20, lpt.topMargin, lpt.rightMargin, lpt.bottomMargin)
+                                val lpt2 = tvP.layoutParams as ViewGroup.MarginLayoutParams
+                                lpt.setMargins(20, lpt2.topMargin, lpt2.rightMargin, lpt2.bottomMargin)
 
+                            }
                         }
+                        setUserDataInUI(loggedInUser)
                     }
                 }
-            }
-        FirestoreClass().loudUserData(this)
+
+        }
+//        FirestoreClass().loudUserData(this)
     }
                 fun setUserDataInUI(user: User) {
                     // TODO (Initialize the user details variable)

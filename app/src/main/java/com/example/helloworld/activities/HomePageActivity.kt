@@ -187,7 +187,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         // START
         when (menuItem.itemId) {
             R.id.nav_my_profile -> {
-                startActivityForResult(Intent(this,UserProfileActivity::class.java), MY_PROFILE_REQUEST_CODE)
+                startActivityForResult(Intent(this,MyProfileActivity::class.java), MY_PROFILE_REQUEST_CODE)
 
             }
 
