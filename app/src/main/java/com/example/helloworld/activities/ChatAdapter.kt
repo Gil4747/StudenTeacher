@@ -22,7 +22,7 @@ class ChatAdapter(val context: MyMessage, val chatList: ArrayList<User>):
         val currentUser = chatList[position]
         holder.textName.text = currentUser.name
         holder.textAge.text = currentUser.age.toString()
-        holder.textPrice.text = currentUser.price.get(HomePageActivity.profession).toString()
+//        holder.textPrice.text = currentUser.price.get(HomePageActivity.profession).toString()
         holder.textMobile.text = currentUser.mobile.toString()
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)

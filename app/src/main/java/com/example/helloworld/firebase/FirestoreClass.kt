@@ -3,13 +3,10 @@ package com.example.helloworld.firebase
 import android.app.Activity
 import android.util.Log
 import android.widget.Toast
+import com.example.helloworld.activities.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.example.helloworld.activities.HomePageActivity
-import com.example.helloworld.activities.MyProfileActivity
-import com.example.helloworld.activities.SignInActivityG
-import com.example.helloworld.activities.SignUpActivity
 import com.example.helloworld.models.User
 import com.example.helloworld.utils.Constants
 import com.google.firebase.database.*
@@ -207,6 +204,9 @@ class FirestoreClass {
                             activity.updateNavigationUserDetails(loggedInUser)
                         }
                         is MyProfileActivity -> {
+                            activity.setUserDataInUI(loggedInUser)
+                        }
+                        is UserProfileActivity -> {
                             activity.setUserDataInUI(loggedInUser)
                         }
                         // END
