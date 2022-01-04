@@ -1,9 +1,12 @@
 package com.example.helloworld.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helloworld.R
@@ -14,6 +17,7 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_my_message.*
 import kotlinx.android.synthetic.main.activity_my_profile.*
+import kotlinx.android.synthetic.main.activity_sign_in_g.*
 
 class MyMessage : AppCompatActivity() {
     companion object {
@@ -30,8 +34,10 @@ class MyMessage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_message)
-//        supportActionBar?.title = "My Messages"
+        supportActionBar?.title = "My Messages"
 //        setupActionBar()
+
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true);
         chatList = ArrayList()
         var map: HashMap<String, User> = HashMap()
         mDbRef = FirebaseDatabase.getInstance().reference
@@ -63,32 +69,27 @@ class MyMessage : AppCompatActivity() {
 
         userRecyclerView.layoutManager = LinearLayoutManager(this)
         userRecyclerView.adapter = adapter
-        //actionbar
-        val actionbar = supportActionBar
-        //set actionbar title
-        actionbar!!.title = "My Messages"
-        //set back button
-        actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
+
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
+        // If you don't have res/menu, just create a directory named "menu" inside res
+        menuInflater.inflate(R.menu.back_from_my_messages, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+    // handle button activities
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.itemId
+        if (id == R.id.back) {
+            val intent = Intent(this, HomePageActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
+    /**
+     * A function for actionBar Setup.
+     */
 
 
-//    private fun setupActionBar() {
-//
-//        setSupportActionBar(toolbar_my_messages_activity)
-//
-//        val actionBar = supportActionBar
-//        if (actionBar != null) {
-//            actionBar.setDisplayHomeAsUpEnabled(true)
-//            actionBar.setHomeAsUpIndicator(R.drawable.ic_white_color_back_24dp)
-//            actionBar.title = resources.getString(R.string.my_profile_title)
-//        }
-//
-//        toolbar_my_messages_activity.setNavigationOnClickListener { onBackPressed() }
-//    }
 }

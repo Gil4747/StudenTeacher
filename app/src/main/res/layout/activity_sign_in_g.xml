@@ -20,8 +20,6 @@
     <!--END-->
 
 
-    -
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_sign_in_activity"
         android:layout_width="match_parent"

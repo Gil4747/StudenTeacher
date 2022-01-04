@@ -85,7 +85,7 @@ class ChatActivity : AppCompatActivity() {
         .addValueEventListener(object : ValueEventListener {
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
-//                messageList.clear()
+                messageList.clear()
                 for (postSnapshot in snapshot.children) {
                     val message = postSnapshot.getValue(Message::class.java)
                     messageList.add(message!!)
