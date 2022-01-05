@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_main_2_1.*
 import kotlinx.android.synthetic.main.user_layout.*
 
 
-class MainActivity2 : AppCompatActivity() {
+class TeacherFiltering : AppCompatActivity() {
     companion object {
         private lateinit var userList: ArrayList<User>
     }

@@ -60,8 +60,6 @@ class ChatActivity : AppCompatActivity() {
     receiverUid = intent.getStringExtra("uid")
     Log.d("Reciver", "${receiverUid}")
 //        ksdljjjjjjjjjjakdljdslkjflkdj
-    val senderUid1 = FirebaseAuth.getInstance().currentUser?.uid
-
     if (senderUid != null) {
         Log.d("Senser", senderUid)
     }

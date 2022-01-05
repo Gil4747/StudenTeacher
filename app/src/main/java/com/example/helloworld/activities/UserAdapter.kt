@@ -8,9 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helloworld.R
 import com.example.helloworld.models.User
-import com.google.firebase.auth.FirebaseAuth
 
-class UserAdapter(val context: MainActivity2, val userList: ArrayList<User>):
+class UserAdapter(val context: TeacherFiltering, val userList: ArrayList<User>):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
 

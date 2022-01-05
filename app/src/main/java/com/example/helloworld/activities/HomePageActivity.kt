@@ -120,7 +120,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
 //        textViewToChange.text = str
         btn_search.setOnClickListener {
 //            Toast.makeText(this,"${teachers}", Toast.LENGTH_LONG).show()
-            startActivity(Intent(this@HomePageActivity, MainActivity2::class.java))
+            startActivity(Intent(this@HomePageActivity, TeacherFiltering::class.java))
         }
 
     }

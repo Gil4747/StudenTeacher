@@ -38,7 +38,7 @@
             android:name=".activities.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity2"
+            android:name=".activities.TeacherFiltering"
             android:exported="false" />
         <activity
             android:name=".activities.MyProfileActivity"
