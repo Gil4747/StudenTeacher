@@ -42,6 +42,7 @@ class ChatActivity : AppCompatActivity() {
         private lateinit var chatMapS: HashMap<String,User>
         var receiverUid: String? = null
         lateinit var receiverImage: String
+        val senderUid = Firebase.auth.currentUser?.uid
     }
 
 //    private lateinit var binding: ResultProfileBinding
@@ -60,7 +61,7 @@ class ChatActivity : AppCompatActivity() {
     Log.d("Reciver", "${receiverUid}")
 //        ksdljjjjjjjjjjakdljdslkjflkdj
     val senderUid1 = FirebaseAuth.getInstance().currentUser?.uid
-    val senderUid = Firebase.auth.currentUser?.uid
+
     if (senderUid != null) {
         Log.d("Senser", senderUid)
     }
@@ -183,8 +184,20 @@ class ChatActivity : AppCompatActivity() {
                     }
                 }
             }
-
-
+           var userHashMap: HashMap<String, HashMap<String, User>>
+           userHashMap= HashMap()
+            userHashMap.put("chatList", chatMapR)
+            var userHashMapR: HashMap<String, HashMap<String, User>>
+            userHashMapR= HashMap()
+            userHashMapR.put("chatList", chatMapS)
+            mDbRef = FirebaseDatabase.getInstance().reference
+            mDbRef.child("user").child(senderUid!!).child("chatList").setValue(userHashMap.getValue("chatList")).addOnSuccessListener {
+            }
+            mDbRef.child("user").child(receiverUid!!).child("chatList").setValue(userHashMapR.getValue("chatList")).addOnSuccessListener {
+            }
+//            mDbRef.child("user").child(receiverUid!!).child("chatList").push().setValue(chatMapS)
+//
+//            mDbRef.child("user").child(senderRoom!!).child("chatList").push().setValue(chatMapR)
 
             mDbRef.child("chats").child(senderRoom!!).child("messages").push()
                 .setValue(messageObject).addOnSuccessListener {

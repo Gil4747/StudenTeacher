@@ -70,10 +70,15 @@ class MainActivity2 : AppCompatActivity() {
                                 if(currentUser.area==HomePageActivity.itemA){
                                     for (i in currentUser.allProfession) {
                                         Log.d("Main2---------לגךדח", "HomePageActivity.profession")
-
-                                        if (i == HomePageActivity.profession) {
-                                            Log.d("MA", "$currentUser")
-                                            userList.add(currentUser!!)
+                                        if(HomePageActivity.profession.length>=i.length){
+                                            if(i.lowercase() == HomePageActivity.profession.substring(i.length).lowercase()) {
+                                                userList.add(currentUser!!)
+                                            }
+                                        }
+                                        if(i.length>=HomePageActivity.profession.length){
+                                            if (i.substring(HomePageActivity.profession.length).lowercase() == HomePageActivity.profession.lowercase()) {
+                                                userList.add(currentUser!!)
+                                            }
                                         }
                                     }
                                 }
