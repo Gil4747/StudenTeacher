@@ -422,7 +422,7 @@ class MyProfileActivity : BaseActivity() {
         if(list_of_id_professions.size>0) {
             var count = 0
             for (i in list_of_id_professions) {
-                if(i.text.toString()!= mUserDetails.allProfession[count])
+                if(i.text.toString() != mUserDetails.allProfession[count])
                     mUserDetails.allProfession[count]=i.text.toString()
                 if(list_of_id_price[count].text.toString().toInt() != mUserDetails.price[i.text.toString()])
                     mUserDetails.price[i.text.toString()]=list_of_id_price[count].text.toString().toInt()
@@ -452,26 +452,32 @@ class MyProfileActivity : BaseActivity() {
 //                }
 //               }
 //            else{
-                var count2=0
-                for (i in allEd) {
-                    if(mUserDetails.allProfession.isNotEmpty()) {
-                        if (!mUserDetails.allProfession.contains(i.text.toString())) {
-                            mUserDetails.allProfession.add(i.text.toString())
-                            mUserDetails.price.put(i.text.toString(),allEdPrice[count2].text.toString().toInt())
-                        }
-                    }
-                    else{
+            var count2 = 0
+            for (i in allEd) {
+                if (mUserDetails.allProfession.isNotEmpty()) {
+                    if (!mUserDetails.allProfession.contains(i.text.toString())) {
                         mUserDetails.allProfession.add(i.text.toString())
-                        mUserDetails.price.put(i.text.toString(),allEdPrice[count2].text.toString().toInt())
+                        mUserDetails.price.put(
+                            i.text.toString(),
+                            allEdPrice[count2].text.toString().toInt()
+                        )
                     }
-                    count2++
-
+                } else {
+                    mUserDetails.allProfession.add(i.text.toString())
+                    mUserDetails.price.put(
+                        i.text.toString(),
+                        allEdPrice[count2].text.toString().toInt()
+                    )
                 }
+                count2++
+
+            }
+        }
 
                 userHashMapPrice[Constants.PRICE]= mUserDetails.price
 //            }
             userHashMap2[Constants.ALLPROFESSION]= mUserDetails.allProfession
-        }
+
 
         // Update the data in the database.
 
