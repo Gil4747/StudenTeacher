@@ -63,10 +63,9 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
 
         val areaArr: MutableList<String> = ArrayList()
         areaArr.add("Area")
-        areaArr.add("צפון")
-        areaArr.add("מרכז")
-        areaArr.add("יהודה  ושומרון")
-        areaArr.add("דרום")
+        areaArr.add("North")
+        areaArr.add("Center")
+        areaArr.add("South")
         val spn_area_hp = findViewById<Spinner>(R.id.spn_area_hp)
         val arrayAdapter =ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,areaArr)
         spn_area_hp.onItemSelectedListener = object :
@@ -339,7 +338,7 @@ class HomePageActivity : BaseActivity(), NavigationView.OnNavigationItemSelected
         response.users?.let { users ->
             users.forEach { user ->
                 user.email.let {
-                    Toast.makeText(this@HomePageActivity,user.uid,Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this@HomePageActivity,user.uid,Toast.LENGTH_LONG).show()
                     if(user.uid == FirestoreClass().getCurrentUserID()) {
                         return user
                     }

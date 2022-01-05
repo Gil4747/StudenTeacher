@@ -35,7 +35,6 @@ class SignUpActivity : BaseActivity() {
     var allEd: MutableList<EditText> = ArrayList()
     var allEdPrice: MutableList<EditText> = ArrayList()
     companion object {
-//        var priceET:  HashMap<String, Int> = HashMap()
         lateinit var itemA: String
         lateinit var itemG: String
     }
@@ -62,11 +61,10 @@ class SignUpActivity : BaseActivity() {
 
         val list: MutableList<String> = ArrayList()
 
-        list.add("אזור")
-        list.add("צפון")
-        list.add("מרכז")
-        list.add("יהודה  ושומרון")
-        list.add("דרום")
+        list.add("Area")
+        list.add("North")
+        list.add("Center")
+        list.add("South")
 
         val adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list)
         spn_area_R.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -92,10 +90,10 @@ class SignUpActivity : BaseActivity() {
         val spn_gender = findViewById<Spinner>(R.id.spn_gender)
         val list2: MutableList<String> = ArrayList()
 
-        list2.add("מין")
-        list2.add("זכר")
-        list2.add("נקבה")
-        list2.add("אחר")
+        list2.add("Gender")
+        list2.add("Male")
+        list2.add("Female")
+        list2.add("Other")
 
         val adapter2 = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, list2)
         spn_gender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -136,34 +134,41 @@ class SignUpActivity : BaseActivity() {
             for (i in 1..num_of_classes) {
                 val l = LinearLayout(this)
                 l.orientation = LinearLayout.HORIZONTAL
+                val tv=TextView(this)
+                val tvP=TextView(this)
                 val et = EditText(this)
                 val etP = EditText(this)
                 val p = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
+                tv.layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                tvP.layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+
                 et.layoutParams = p
                 etP.layoutParams = p
                 et.id = i
+                tv.text = "Profession"
+                et.setText("Profession")
+                etP.setText("Price")
+                tvP.text="Price"
                 allEd.add(et)
                 allEdPrice.add(etP)
+                ll.addView(tv)
                 ll.addView(et)
+                ll.addView(tvP)
                 ll.addView(etP)
+
             }
 
         }
-//        val btn_i_want_teach = findViewById<Button>(R.id.btn_i_want_teach)
-//        btn_i_want_teach.setOnClickListener {
-//            val layout = findViewById<View>(R.id.holder) as LinearLayout
-//            val et = EditText(this)
-//            val lp = ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT)
-//            layout.addView(et, lp)
-//        }
-//        val btn_i_want_teach = findViewById<Button>(R.id.btn_i_want_teach)
-//        btn_i_want_teach.setOnClickListener {
-//            val intent = Intent(this, WhatIAmTeaching::class.java)
-//            startActivity(intent)
-//        }
+
     }
     fun userRegisteredSuccess(){
         Toast.makeText(this@SignUpActivity, "you have successfully registered ",
@@ -199,12 +204,9 @@ class SignUpActivity : BaseActivity() {
         btn_sign_up.setOnClickListener {
             registerUser()
         }
-//        btn_i_want_teach.setOnClickListener {
-//            val intent = Intent(this, WhatIAmTeaching::class.java)
-//            startActivity(intent)
-//        }
+
     }
-    // TODO (Step 9: A function to register a new user to the app.)
+    // TODO ( A function to register a new user to the app.)
     // START
     /**
      * A function to register a user to our app using the Firebase.
@@ -222,9 +224,6 @@ class SignUpActivity : BaseActivity() {
         val et_age: Int = et_age_sing_up.text.toString().trim().toInt()
 //        val gender: String = spn_gender.text.toString().trim { it <= ' ' }
         val et_how_many_classes: String = et_how_many_classes.text.toString().trim { it <= ' ' }
-//        val prof1: String = et_prof1_signUp.text.toString().trim { it <= ' ' }
-//        val prof2: String = et_prof2.text.toString().trim { it <= ' ' }
-//        val prof3: String = et_prof3.text.toString().trim { it <= ' ' }
         val Cpassword: String = et_confirm_password_signUp.text.toString().trim { it <= ' ' }
 
         if (validateForm(name, email, password, Cpassword)) {
@@ -260,7 +259,7 @@ class SignUpActivity : BaseActivity() {
                                     if(j.text.isNotEmpty()) {
                                         allPrice.put(allProfessions[count2], j.text.toString().toInt())
                                     }
-                                    count++
+                                    count2++
                                 }
                                 var chatList: HashMap<String, User> = HashMap()
                                 val user = User(firebaseUser.uid, name, registeredEmail,allProfessions,phone,itemA,itemG, age = et_age, price = allPrice, chatList = chatList )

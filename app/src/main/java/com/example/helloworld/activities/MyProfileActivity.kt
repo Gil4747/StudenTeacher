@@ -144,9 +144,9 @@ class MyProfileActivity : BaseActivity() {
                         val l = LinearLayout(this)
                         l.orientation = LinearLayout.HORIZONTAL
                         val tv=TextView(this)
-                        val et = EditText(this)///לשנות את זה לTextView
+                        val et = EditText(this)
                         val tvP=TextView(this)
-                        val etP = EditText(this)///לשנות את זה לTextView
+                        val etP = EditText(this)
                         val p = LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -419,6 +419,16 @@ class MyProfileActivity : BaseActivity() {
 //                list_of_id_professions.add(i)
 //            }
 //        }
+        if(list_of_id_professions.size>0) {
+            var count = 0
+            for (i in list_of_id_professions) {
+                if(i.text.toString()!= mUserDetails.allProfession[count])
+                    mUserDetails.allProfession[count]=i.text.toString()
+                if(list_of_id_price[count].text.toString().toInt() != mUserDetails.price[i.text.toString()])
+                    mUserDetails.price[i.text.toString()]=list_of_id_price[count].text.toString().toInt()
+                count++
+            }
+        }
         if(allEd.size>0) {
             var count = 0
             var listAddP: ArrayList<String> = ArrayList()
