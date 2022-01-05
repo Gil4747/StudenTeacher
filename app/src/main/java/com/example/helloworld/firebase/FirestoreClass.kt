@@ -82,10 +82,8 @@ class FirestoreClass {
         }
     }
     private fun addUserToDatabase(name: String, email: String, uid: String, allProfessions: ArrayList<String>, phone: Long, area: String, gender: String, age: Int, price: HashMap<String, Int>, chatList: HashMap<String, User>, image: String) {
-        mDbRef = FirebaseDatabase.getInstance().reference
-        val u= User("skckdl","gil","gilqwer1@gmail.com")
-        chatList.put("d,jfajk",u)
-        mDbRef.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,image,age,price,chatList))
+       val RDF = FirebaseDatabase.getInstance().reference
+        RDF.child("user").child(uid).setValue(User(uid,name,email,allProfessions,phone,area,gender,image,age,price,chatList))
     }
     //    private fun addUserToDatabase(name: String, email: String, uid: String, phone:Long, area: String, gender: String,age:Int, price:Int) {
 //        mDbRef = FirebaseDatabase.getInstance().reference
