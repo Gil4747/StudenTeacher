@@ -178,9 +178,11 @@ class ChatActivity : AppCompatActivity() {
                 FirebaseDatabase.getInstance().reference.child("user").child(senderUid).child("chatList").setValue(
                     chatMapR).addOnSuccessListener {
                 }
-                if (receiverUid != null) {
-                    FirebaseDatabase.getInstance().reference.child("user").child(receiverUid!!).child("chatList").setValue(
+
+                receiverUid?.let { it1 ->
+                    FirebaseDatabase.getInstance().reference.child("user").child(it1).child("chatList").setValue(
                         chatMapS).addOnSuccessListener {
+
                     }
                 }
             }
