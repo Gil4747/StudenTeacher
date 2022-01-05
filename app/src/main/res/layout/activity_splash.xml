@@ -8,12 +8,21 @@
     android:background="@drawable/ic_splash_background"
     tools:viewBindingIgnore="true"
     tools:context=".activities.SplashActivity">
-    <TextView
+    <ImageView
         android:id="@+id/tv_app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textStyle="bold"
-        android:textSize="@dimen/splash_screen_title_text_size"/>
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:contentDescription="@string/image_contentDescription"
+        android:src="@drawable/ic_pmain" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_app_name"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--        android:text="@string/app_name"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="@dimen/splash_screen_title_text_size"/>-->
 </LinearLayout>

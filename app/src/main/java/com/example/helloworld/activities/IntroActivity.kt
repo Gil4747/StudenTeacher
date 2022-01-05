@@ -26,7 +26,7 @@ class IntroActivity : AppCompatActivity() {
 
         val typeface: Typeface =
             Typeface.createFromAsset(assets, "carbon bl.ttf")
-        tv_app_name_intro.typeface = typeface
+//        tv_app_name_intro.typeface = typeface
 
         // TODO (Add a click event for Sign In btn and launch the Sign In Screen.)
         // START

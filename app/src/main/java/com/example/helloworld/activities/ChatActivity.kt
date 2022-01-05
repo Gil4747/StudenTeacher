@@ -21,6 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import android.view.Menu
 import android.view.MenuItem
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.activity_main2.*
 
 
 class ChatActivity : AppCompatActivity() {
@@ -39,6 +41,7 @@ class ChatActivity : AppCompatActivity() {
         private lateinit var chatMapR: HashMap<String,User>
         private lateinit var chatMapS: HashMap<String,User>
         var receiverUid: String? = null
+        lateinit var receiverImage: String
     }
 
 //    private lateinit var binding: ResultProfileBinding
@@ -80,6 +83,26 @@ class ChatActivity : AppCompatActivity() {
     chatRecyclerView.layoutManager = LinearLayoutManager(this)
     chatRecyclerView.adapter = messageAdapter
 
+    FirebaseDatabase.getInstance().reference.child("user").addValueEventListener(object: ValueEventListener {
+
+        override fun onDataChange(snapshot: DataSnapshot) {
+            Log.d("mainActivity:","$snapshot")
+            for (postSnapshot in snapshot.children){
+                val currentUser = postSnapshot.getValue(User::class.java)
+                if(receiverUid == currentUser?.uid){
+                    if (currentUser != null) {
+                        Log.d("mainActivity:", "image:${currentUser.image}")
+                    }
+                    if (currentUser != null) {
+                        receiverImage = currentUser.image
+                    }
+                }
+            }
+        }
+
+        override fun onCancelled(error: DatabaseError) {}
+
+    })
     //logic for adding data to recyclerView
     mDbRef.child("chats").child(senderRoom!!).child("messages")
         .addValueEventListener(object : ValueEventListener {
@@ -171,11 +194,24 @@ class ChatActivity : AppCompatActivity() {
             messageBox.setText("")
 
         }
+//    updateNavigationUserDetails(receiveUser)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
         // If you don't have res/menu, just create a directory named "menu" inside res
+
         menuInflater.inflate(R.menu.menu_profile, menu)
+//        Log.d("mainActivity:","image:${receiverImage}")
+//        var m= menu
+        // Load the user image in the ImageView.
+//        Glide
+//            .with(this@ChatActivity)
+//            .load(receiverImage) // URL of the image
+////                .centerCrop() // Scale type of the image.
+////                .placeholder(R.drawable.ic_user_place_holder)
+//            .into(m) // A default place holder                .into(navUserImage) // the view in which the image will be loaded.
+//        Log.d("mainActivity:","יששששששששששששששששששששש")
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -188,4 +224,24 @@ class ChatActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+//    @SuppressLint("CheckResult")
+//    fun updateNavigationUserDetails(user: User) {
+//        // The instance of the header view of the navigation view.
+////        val headerView = card_view.getHeaderView(0)
+//
+//        // The instance of the user image of the navigation view.
+////            val navUserImage = findViewById<ImageView>(R.id.iv_profile_user_card_image)
+//        Log.d("mainActivity:","image:${user.image}")
+//        // Load the user image in the ImageView.
+//        Glide
+//            .with(this@ChatActivity)
+//            .load(user.image) // URL of the image
+////                .centerCrop() // Scale type of the image.
+////                .placeholder(R.drawable.ic_user_place_holder)
+//            .into(userButton) // A default place holder                .into(navUserImage) // the view in which the image will be loaded.
+//        Log.d("mainActivity:","יששששששששששששששששששששש")
+//
+//    }
 }
+
+

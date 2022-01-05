@@ -6,12 +6,19 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.helloworld.R
 import com.example.helloworld.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_home_page.*
+import kotlinx.android.synthetic.main.activity_home_page.nav_view
+import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.android.synthetic.main.activity_main_2_1.*
+import kotlinx.android.synthetic.main.user_layout.*
 
 
 class MainActivity2 : AppCompatActivity() {
@@ -27,7 +34,7 @@ class MainActivity2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_2_1)
+        setContentView(R.layout.activity_main2)
         supportActionBar?.title = "Select teacher"
 
         mAuth = FirebaseAuth.getInstance()
@@ -38,11 +45,11 @@ class MainActivity2 : AppCompatActivity() {
 
 
 
-        userRecyclerView = findViewById(R.id.recyclerView)
+        userRecyclerView = findViewById(R.id.UserRecyclerView)
 
         userRecyclerView.layoutManager = LinearLayoutManager(this)
         userRecyclerView.adapter = adapter
-        mDbRef.child("user").addValueEventListener(object: ValueEventListener {
+        FirebaseDatabase.getInstance().reference.child("user").addValueEventListener(object: ValueEventListener {
 
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -74,6 +81,7 @@ class MainActivity2 : AppCompatActivity() {
                         }
 
                         Log.d("Main2-list", "$userList")
+//                        updateNavigationUserDetails(userList)
 
                     }
                 }
@@ -102,4 +110,5 @@ class MainActivity2 : AppCompatActivity() {
         }
         return true
     }
+
 }

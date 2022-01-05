@@ -90,7 +90,7 @@ class MyProfileActivity : BaseActivity() {
 
         // TODO (Add a click event for iv_profile_user_image.)
         // START
-        iv_profile_user_image.setOnClickListener {
+        iv_profile_image.setOnClickListener {
 
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED
@@ -295,7 +295,7 @@ class MyProfileActivity : BaseActivity() {
                     .load(Uri.parse(mSelectedImageFileUri.toString())) // URI of the image
                     .centerCrop() // Scale type of the image.
                     .placeholder(R.drawable.ic_user_place_holder) // A default place holder
-                    .into(iv_profile_user_image) // the view in which the image will be loaded.
+                    .into(iv_profile_image) // the view in which the image will be loaded.
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -492,7 +492,7 @@ class MyProfileActivity : BaseActivity() {
             .load(user.image)
             .centerCrop()
             .placeholder(R.drawable.ic_user_place_holder)
-            .into(iv_profile_user_image)
+            .into(iv_profile_image)
 
 
         et_name.setText(user.name)
